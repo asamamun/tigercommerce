@@ -1,0 +1,23 @@
+{
+    "name": "wdpf/gnsl2024",
+    "description": "Multivendor Ecommerce",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Poly Batch GNSL 2024",
+            "email": "asamamun.web@gmail.com"
+        }
+    ],
+    "require": {
+        "nesbot/carbon": "^3.8",
+        "intervention/image": "^3.8"
+    }
+}
