@@ -1,57 +1,94 @@
 <?php
-session_start();
-require '../config/database.php';
-// Check if admin is logged in
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header('Location: ../login.php');
-    exit();
+require '../config/database.php'; // Include the database connection
+
+// Fetch Statistics
+$stats = [
+    'total_users' => 0,
+    'total_vendors' => 0,
+    'total_products' => 0,
+    'total_orders' => 0,
+];
+
+// Get Total Users
+$result = $conn->query("SELECT COUNT(*) AS total_users FROM users");
+if ($result->num_rows > 0) {
+    $stats['total_users'] = $result->fetch_assoc()['total_users'];
 }
 
-// Determine which section to include based on the query parameter
-$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+// Get Total Vendors
+$result = $conn->query("SELECT COUNT(*) AS total_vendors FROM vendors");
+if ($result->num_rows > 0) {
+    $stats['total_vendors'] = $result->fetch_assoc()['total_vendors'];
+}
+
+// Get Total Products
+$result = $conn->query("SELECT COUNT(*) AS total_products FROM products");
+if ($result->num_rows > 0) {
+    $stats['total_products'] = $result->fetch_assoc()['total_products'];
+}
+
+// Get Total Orders
+$result = $conn->query("SELECT COUNT(*) AS total_orders FROM orders");
+if ($result->num_rows > 0) {
+    $stats['total_orders'] = $result->fetch_assoc()['total_orders'];
+}
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Your CSS file -->
-</head>
-<body>
-    <div class="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-            <li><a href="index.php?page=dashboard">Dashboard</a></li>
-            <li><a href="category-create.php">Categories</a></li>
-            <li><a href="users.php">Users</a></li>
-            <li><a href="vendors.php">Vendors</a></li>
-            <li><a href="products">Products</a></li>
-            <li><a href="orders.php">Orders</a></li>
-            <li><a href="../logout.php">Logout</a></li>
-        </ul>
+
+<?php include('partials/header.php'); ?>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <?php include('partials/sidebar.php'); ?>
+        </div>
+        <div class="col-9">
+            <div class="d-flex justify-content-between align-items-center my-4">
+                <h2>Admin Dashboard</h2>
+            </div>
+
+            <div class="row">
+                <!-- Total Users Card -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text"><?php echo $stats['total_users']; ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Vendors Card -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Vendors</h5>
+                            <p class="card-text"><?php echo $stats['total_vendors']; ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Products Card -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Products</h5>
+                            <p class="card-text"><?php echo $stats['total_products']; ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Orders Card -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card text-white bg-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Orders</h5>
+                            <p class="card-text"><?php echo $stats['total_orders']; ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="main-content" id="main-content">
-        <?php
-        switch ($page) {
-            case 'dashboard':
-                include 'sections/dashboard.php';
-                break;
-            case 'manage_users':
-                include 'sections/manage_users.php';
-                break;
-            case 'manage_vendors':
-                include 'sections/manage_vendors.php';
-                break;
-            case 'manage_products':
-                include 'sections/manage_products.php';
-                break;
-            case 'manage_orders':
-                include 'sections/manage_orders.php';
-                break;
-            default:
-                echo "<p>Content not found.</p>";
-                break;
-        }
-        ?>
-    </div>
-</body>
-</html>
+</div>
+
+<?php include('partials/footer.php'); ?>

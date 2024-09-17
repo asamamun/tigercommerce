@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'user/dream-social-v2.1',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'name' => 'wdpf/gnsl2024',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '1a01cddeed75b0352082150c4923cd66057621e6',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -112,10 +112,10 @@
                 0 => '2.3|3.0',
             ),
         ),
-        'user/dream-social-v2.1' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+        'wdpf/gnsl2024' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '1a01cddeed75b0352082150c4923cd66057621e6',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
