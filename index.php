@@ -19,4 +19,5 @@ $id = $_SESSION['user_id']; */
 
 echo config('poly.project') . "<br>";
 echo config('test.course') . "<br>";
+echo settings()['root'];
 ?>

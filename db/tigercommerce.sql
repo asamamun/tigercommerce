@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2024 at 12:51 PM
+-- Generation Time: Sep 18, 2024 at 12:51 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,6 +49,16 @@ CREATE TABLE `categories` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `parent_id`, `created_at`, `updated_at`) VALUES
+(3, 'Electronics', NULL, '2024-09-17 08:04:07', '2024-09-17 08:04:27'),
+(4, 'TV', 3, '2024-09-17 08:05:54', '2024-09-17 08:05:54'),
+(5, 'Garments', NULL, '2024-09-17 08:06:15', '2024-09-17 08:06:15'),
+(6, 'Shirt', 5, '2024-09-17 08:06:31', '2024-09-17 08:06:31');
 
 -- --------------------------------------------------------
 
@@ -118,6 +128,13 @@ CREATE TABLE `products` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `vendor_id`, `category_id`, `name`, `description`, `price`, `stock_quantity`, `image_url`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 'asdf', 'asdf', 333.00, 100, 'asdf.jpg', 'active', '2024-09-18 06:42:59', '2024-09-18 06:42:59');
+
 -- --------------------------------------------------------
 
 --
@@ -184,8 +201,6 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_
 (5, 'murgi', 'murgi@email.com', '$2y$10$o5MF40ZeiQWlTuaIjkrQpu5fk5htXvMlsYulsmpkhfZHcYDJn3jLG', NULL, NULL, 'vendor', '2024-09-17 06:21:12', '2024-09-17 06:21:12'),
 (6, 'mamun', 'mamun@gmail.com', '$2y$10$TFvH26tiw9JtdvZ7e36Tle9SdR44S81wzH/E0cIvqboZqlgDwfCRG', NULL, NULL, 'vendor', '2024-09-17 06:21:17', '2024-09-17 06:21:17'),
 (7, 'jannat', 'jannat@gmail.com', '$2y$10$Oaw7fsRI9RfoLpfcdp7DUOmle4.FQr9wqFuNNt0Wd92V42Su5/UEG', NULL, NULL, 'vendor', '2024-09-17 06:21:58', '2024-09-17 06:21:58'),
-(8, '12', 'sdfg@gmail.com', '$2y$10$gyq.6bVu7HfBH7KMcTfT/Op1/FWhzYRN0h/Jl6D6DTEvY0WUmPtEe', NULL, NULL, 'customer', '2024-09-17 06:30:04', '2024-09-17 06:30:04'),
-(9, 'Rugiman123', 'rugiman123@gmail.com', '$2y$10$Xp8DlJotugEWQs4z.Z0DS.NbitICK.JBJt8Rljp8Z62QVQG.HnVCG', NULL, NULL, 'customer', '2024-09-17 06:33:14', '2024-09-17 06:33:14'),
 (10, 'Fahima', 'fahima@gmail.com', '$2y$10$I/.p3kmLhdm1p/0m5Ie4UOpOBB99kNfQQjwZ2Eo/KdQ8Z0P4h4N1m', NULL, NULL, 'vendor', '2024-09-17 06:39:32', '2024-09-17 06:39:32');
 
 -- --------------------------------------------------------
@@ -204,6 +219,13 @@ CREATE TABLE `vendors` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vendors`
+--
+
+INSERT INTO `vendors` (`id`, `user_id`, `company_name`, `description`, `logo_url`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'active', '2024-09-18 05:59:56', '2024-09-18 06:38:24');
 
 -- --------------------------------------------------------
 
@@ -319,7 +341,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -343,7 +365,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -367,7 +389,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wishlist`

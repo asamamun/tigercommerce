@@ -23,6 +23,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
 
+            //get vendor id
+            if($role == "vendor") {
+                
+            $stmt = $conn->prepare("SELECT id FROM vendors WHERE user_id = ? limit 1");
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($vendor_id);
+            $stmt->fetch();
+            $_SESSION['vendor_id'] = $vendor_id;
+            }
+            
+
             if ($role == "admin") {
                 header('Location: admin/index.php');
             } elseif($role == "vendor") {

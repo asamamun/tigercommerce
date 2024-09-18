@@ -1,11 +1,18 @@
 <?php
-include 'db.php';
+session_start();
+require __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . "/../config/database.php";
 
 // Fetch vendor products (hardcoded vendor ID for simplicity)
-$vendor_id = 1;
-$stmt = $conn->prepare("SELECT * FROM products WHERE vendor_id = :vendor_id");
-$stmt->execute(['vendor_id' => $vendor_id]);
-$products = $stmt->fetchAll();
+$vendor_id = $_SESSION['vendor_id'];
+$query = "SELECT * FROM products WHERE vendor_id = $vendor_id";
+// echo $query;
+$result = $conn->query($query);
+if($result->num_rows > 0) {
+    $products = $result->fetch_all(MYSQLI_ASSOC);
+    // var_dump($products);
+    // exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +34,7 @@ $products = $stmt->fetchAll();
                     <th>Price</th>
                     <th>Stock Quantity</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +45,10 @@ $products = $stmt->fetchAll();
                     <td><?= $product['price'] ?></td>
                     <td><?= $product['stock_quantity'] ?></td>
                     <td><?= $product['status'] ?></td>
+                    <td>
+                        <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn btn-primary">Edit</a>
+                        <a onclick="return confirm('Are you sure you want to delete this product?')" href="delete_product.php?id=<?= $product['id'] ?>" class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

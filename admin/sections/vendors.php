@@ -62,7 +62,7 @@ if ($result->num_rows > 0) {
                                 <td><?php echo htmlspecialchars($vendor['description']); ?></td>
                                 <td>
                                     <?php if ($vendor['logo_url']): ?>
-                                        <img src="<?php echo htmlspecialchars($vendor['logo_url']); ?>" alt="Logo" width="100" height="100">
+                                        <img src="<?= settings()['root'] ."/uploads/vendor/logo/". htmlspecialchars($vendor['logo_url']); ?>" alt="Logo" width="100" height="100">
                                     <?php else: ?>
                                         No Logo
                                     <?php endif; ?>
