@@ -5,9 +5,15 @@ require __DIR__ . "/../config/database.php";
 
 // Fetch vendor products (hardcoded vendor ID for simplicity)
 $vendor_id = $_SESSION['vendor_id'];
+if(!isset($vendor_id)) {
+    echo "Create vendor profile first";
+    exit();
+}
+// echo $vendor_id;
 $query = "SELECT * FROM products WHERE vendor_id = $vendor_id";
-// echo $query;
+echo $query;
 $result = $conn->query($query);
+$products = [];
 if($result->num_rows > 0) {
     $products = $result->fetch_all(MYSQLI_ASSOC);
     // var_dump($products);
@@ -26,6 +32,7 @@ if($result->num_rows > 0) {
 <body>
     <div class="container mt-5">
         <h2>Products</h2>
+        <a href="products-add.php" class="btn btn-primary mb-3">Add Product</a>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -38,6 +45,7 @@ if($result->num_rows > 0) {
                 </tr>
             </thead>
             <tbody>
+                <?php if ($products): ?>
                 <?php foreach ($products as $product): ?>
                 <tr>
                     <td><?= $product['id'] ?></td>
@@ -51,6 +59,11 @@ if($result->num_rows > 0) {
                     </td>
                 </tr>
                 <?php endforeach; ?>
+                <?php else: ?>
+                <tr>
+                    <td colspan="6">No products found.</td>
+                </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

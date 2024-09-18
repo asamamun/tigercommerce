@@ -13,7 +13,8 @@ if (!function_exists('settings')) {
             'hostname'=> 'localhost',
             'user'=> 'root',
             'password'=> '',
-            'database'=> 'lioncommerce'
+            'database'=> 'lioncommerce',
+            'uploadpath' => 'D:\xampp8240\htdocs\POLY\Batch01\Class20-17-92024Project\tigercommerce\uploads\vendor\products',
         ];
     }
 }
