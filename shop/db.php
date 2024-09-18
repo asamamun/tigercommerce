@@ -11,4 +11,9 @@ try {
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+// Set charset to utf8
+$conn->set_charset("utf8");
 ?>
+
+
+
