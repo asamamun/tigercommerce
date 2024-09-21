@@ -1,4 +1,3 @@
-<!-- /admin/section/category.php -->
 <?php
 require '../../config/database.php'; // Include the database connection
 
@@ -43,66 +42,70 @@ if ($result->num_rows > 0) {
 ?>
 
 <?php include('../partials/header.php'); ?>
+<?php include('../partials/navbar.php'); ?>
 
-<div class="container-fluid">
+<div class="container-fluid category-page-container">
     <div class="row">
-        <div class="col-3">
+        <div class="col-lg-3 col-md-4">
             <?php include('../partials/sidebar.php'); ?>
         </div>
-        <div class="col-9">
-            <div class="d-flex justify-content-between align-items-center my-4">
-                <h2>Categories</h2>
+
+        <div class="col-lg-9 col-md-8">
+            <div class="d-flex justify-content-between align-items-center my-4 category-header">
+                <h2 class="category-title">Manage Categories</h2>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                     <i class="bi bi-plus-circle"></i> Add Category
                 </button>
             </div>
 
             <!-- Categories Table -->
-            <table class="table table-bordered table-striped">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Category Name</th>
-                        <th>Parent Category</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($categories)): ?>
-                        <?php foreach ($categories as $category): ?>
-                            <tr>
-                                <td><?php echo $category['id']; ?></td>
-                                <td><?php echo htmlspecialchars($category['name']); ?></td>
-                                <td>
-                                    <?php
-                                    if ($category['parent_id']) {
-                                        // Fetch parent category name
-                                        $stmt = $conn->prepare("SELECT name FROM categories WHERE id = ?");
-                                        $stmt->bind_param("i", $category['parent_id']);
-                                        $stmt->execute();
-                                        $stmt->bind_result($parent_name);
-                                        $stmt->fetch();
-                                        $stmt->close();
-                                        echo htmlspecialchars($parent_name);
-                                    } else {
-                                        echo 'None';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <a href="category.php?delete=<?php echo $category['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this category?');">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead class="table-dark">
                         <tr>
-                            <td colspan="4" class="text-center">No categories found.</td>
+                            <th>#</th>
+                            <th>Category Name</th>
+                            <th>Parent Category</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($categories)): ?>
+                            <?php foreach ($categories as $category): ?>
+                                <tr>
+                                    <td><?php echo $category['id']; ?></td>
+                                    <td><?php echo htmlspecialchars($category['name']); ?></td>
+                                    <td>
+                                        <?php
+                                        if ($category['parent_id']) {
+                                            // Fetch parent category name
+                                            $stmt = $conn->prepare("SELECT name FROM categories WHERE id = ?");
+                                            $stmt->bind_param("i", $category['parent_id']);
+                                            $stmt->execute();
+                                            $stmt->bind_result($parent_name);
+                                            $stmt->fetch();
+                                            $stmt->close();
+                                            echo htmlspecialchars($parent_name);
+                                        } else {
+                                            echo 'None';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <a href="category.php?delete=<?php echo $category['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this category?');">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4" class="text-center">No categories found.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Add Category Modal -->
             <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">

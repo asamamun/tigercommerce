@@ -2,9 +2,24 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
-    background-color: #f8f9fa;
+    background: radial-gradient(circle, #dcdfe2, #0d121b);
     margin: 0;
     padding: 0;
+    line-height: 1.6;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('background-pattern.png') repeat;
+    opacity: 0.1;
+    z-index: -1;
 }
 
 a {
@@ -58,63 +73,227 @@ h4 {
     font-size: 1.25rem;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.navbar a {
-    color: white;
-    margin: 0 15px;
-    font-size: 1rem;
-}
-
-.navbar a:hover {
-    text-decoration: underline;
-}
-
-.sidebar {
-    background: #343a40;
-    color: white;
-    padding: 20px;
-    border-right: 2px solid #495057;
-    height: 100vh;
-}
-
-.sidebar a {
-    color: #ced4da;
-    display: block;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-.sidebar a:hover {
-    background: #495057;
-    color: white;
-}
-
-.card {
-    background: white;
+/* Dashboard Container */
+.dashboard-container {
+    padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
 }
 
-.card-header {
+/* Dashboard Title */
+.dashboard-title {
+    color: #343a40;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #222;
+    padding: 0.75rem 1rem;
+}
+.navbar-brand {
     font-size: 1.25rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
+    font-weight: 600;
+}
+.navbar .form-control {
+    border: none;
+    padding: 0.5rem 1.5rem;
+    background-color: #d7cfcf;
+    color: #fff;
+    box-shadow: none;
+}
+.navbar .form-control:focus {
+    outline: none;
+    background-color: #b6c6c9;
+}
+.btn-outline-light {
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
 }
 
-.card-body {
-    font-size: 1rem;
+/* Sidebar Styles */
+.sidebar {
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: #222;
+    border-right: 1px solid #444;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensures items are stacked from the top */
+    border-radius: 10px;
 }
+.sidebar .nav-link {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
+}
+.sidebar .nav-link:hover {
+    background-color: #333;
+    color: #fff;
+}
+.sidebar .nav-link i {
+    margin-right: 0.75rem;
+}
+.sidebar ul.navbar-nav {
+    flex-grow: 1; /* Ensures the ul takes the remaining space if necessary */
+    justify-content: flex-start; /* Stack the items from the top */
+}
+.sidebar ul.navbar-nav li.nav-item {
+    margin-bottom: 10px; /* Optional: Adds space between each item */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .navbar .form-control {
+        width: 100%;
+    }
+}
+ 
+
+
+/* Custom Card Styles */
+.custom-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.custom-card .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+}
+
+.custom-card .card-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.custom-card .card-body {
+    position: relative;
+    z-index: 2;
+}
+
+/* Custom Catagory Styles */
+.category-page-container {
+    padding: 20px;
+}
+
+.category-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.category-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.modal-header {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.btn-close {
+    background-color: #f8f9fa;
+}
+
+/* Custom user.php Styles */
+.user-page-container {
+    padding: 20px;
+}
+
+.user-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.user-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Custom vandor.php Styles */
+.vendor-page-container {
+    padding: 20px;
+}
+
+.vendor-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.vendor-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+/* Custom product.php Styles */
+.product-page-container {
+    padding: 20px;
+}
+
+.product-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.product-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+/* Orders Page Specific Styles */
+.order-page-container {
+    padding: 20px;
+}
+
+.order-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.order-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+/* Custom Table Styles */
 
 .table {
     width: 100%;

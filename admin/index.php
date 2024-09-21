@@ -35,55 +35,61 @@ if ($result->num_rows > 0) {
 ?>
 
 <?php include('partials/header.php'); ?>
+<?php include('partials/navbar.php'); ?>
 
-<div class="container-fluid">
+<div class="container-fluid dashboard-container">
     <div class="row">
-        <div class="col-3">
+        <div class="col-lg-3 col-md-4 sidebar-section">
             <?php include('partials/sidebar.php'); ?>
         </div>
-        <div class="col-9">
-            <div class="d-flex justify-content-between align-items-center my-4">
-                <h2>Admin Dashboard</h2>
+
+        <div class="col-lg-9 col-md-8">
+            <div class="d-flex justify-content-between align-items-center my-4 dashboard-header">
+                <h2 class="dashboard-title">Admin Dashboard</h2>
             </div>
 
             <div class="row">
                 <!-- Total Users Card -->
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card text-white bg-primary">
+                    <div class="card custom-card text-white bg-primary">
                         <div class="card-body">
                             <h5 class="card-title">Total Users</h5>
-                            <p class="card-text"><?php echo $stats['total_users']; ?></p>
+                            <p class="card-text display-6"><?php echo $stats['total_users']; ?></p>
                         </div>
+                        <a href="<?= settings()['adminpage']; ?>sections/users.php" class="stretched-link"></a>
                     </div>
                 </div>
 
                 <!-- Total Vendors Card -->
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card text-white bg-success">
+                    <div class="card custom-card text-white bg-success">
                         <div class="card-body">
                             <h5 class="card-title">Total Vendors</h5>
-                            <p class="card-text"><?php echo $stats['total_vendors']; ?></p>
+                            <p class="card-text display-6"><?php echo $stats['total_vendors']; ?></p>
                         </div>
+                        <a href="<?= settings()['adminpage']; ?>sections/vendors.php" class="stretched-link"></a>
                     </div>
                 </div>
 
                 <!-- Total Products Card -->
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card text-white bg-warning">
+                    <div class="card custom-card text-white bg-warning">
                         <div class="card-body">
                             <h5 class="card-title">Total Products</h5>
-                            <p class="card-text"><?php echo $stats['total_products']; ?></p>
+                            <p class="card-text display-6"><?php echo $stats['total_products']; ?></p>
                         </div>
+                        <a href="<?= settings()['adminpage']; ?>sections/products.php" class="stretched-link"></a>
                     </div>
                 </div>
 
                 <!-- Total Orders Card -->
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card text-white bg-danger">
+                    <div class="card custom-card text-white bg-danger">
                         <div class="card-body">
                             <h5 class="card-title">Total Orders</h5>
-                            <p class="card-text"><?php echo $stats['total_orders']; ?></p>
+                            <p class="card-text display-6"><?php echo $stats['total_orders']; ?></p>
                         </div>
+                        <a href="<?= settings()['adminpage']; ?>sections/orders.php" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
