@@ -54,9 +54,9 @@ if ($result->num_rows > 0) {
                     <div class="card custom-card text-white bg-primary">
                         <div class="card-body">
                             <h5 class="card-title">Total Users</h5>
+                            <a href="<?= settings()['adminpage']; ?>sections/users.php" class="stretched-link"></a>
                             <p class="card-text display-6"><?php echo $stats['total_users']; ?></p>
                         </div>
-                        <a href="<?= settings()['adminpage']; ?>sections/users.php" class="stretched-link"></a>
                     </div>
                 </div>
 
@@ -65,9 +65,9 @@ if ($result->num_rows > 0) {
                     <div class="card custom-card text-white bg-success">
                         <div class="card-body">
                             <h5 class="card-title">Total Vendors</h5>
+                            <a href="<?= settings()['adminpage']; ?>sections/vendors.php" class="stretched-link"></a>
                             <p class="card-text display-6"><?php echo $stats['total_vendors']; ?></p>
                         </div>
-                        <a href="<?= settings()['adminpage']; ?>sections/vendors.php" class="stretched-link"></a>
                     </div>
                 </div>
 
@@ -76,9 +76,9 @@ if ($result->num_rows > 0) {
                     <div class="card custom-card text-white bg-warning">
                         <div class="card-body">
                             <h5 class="card-title">Total Products</h5>
+                            <a href="<?= settings()['adminpage']; ?>sections/products.php" class="stretched-link"></a>
                             <p class="card-text display-6"><?php echo $stats['total_products']; ?></p>
                         </div>
-                        <a href="<?= settings()['adminpage']; ?>sections/products.php" class="stretched-link"></a>
                     </div>
                 </div>
 
@@ -87,9 +87,9 @@ if ($result->num_rows > 0) {
                     <div class="card custom-card text-white bg-danger">
                         <div class="card-body">
                             <h5 class="card-title">Total Orders</h5>
+                            <a href="<?= settings()['adminpage']; ?>sections/orders.php" class="stretched-link"></a>
                             <p class="card-text display-6"><?php echo $stats['total_orders']; ?></p>
                         </div>
-                        <a href="<?= settings()['adminpage']; ?>sections/orders.php" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
