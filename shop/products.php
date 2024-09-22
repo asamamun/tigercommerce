@@ -11,7 +11,7 @@ if(!isset($vendor_id)) {
 }
 // echo $vendor_id;
 $query = "SELECT * FROM products WHERE vendor_id = $vendor_id";
-echo $query;
+// echo $query;
 $result = $conn->query($query);
 $products = [];
 if($result->num_rows > 0) {
@@ -20,18 +20,24 @@ if($result->num_rows > 0) {
     // exit;
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- header -->
+<?php require __DIR__ . "/partials/header.php"; ?>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h2>Products</h2>
+    <div class="wrapper">
+<!-- sidebar -->
+        <?php require __DIR__ . "/partials/leftbar.php"; ?>
+        <div class="main">
+<?php require __DIR__ . "/partials/navbar.php"; ?>
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4>Admin Dashboard</h4>
+                    </div>
+                    <div class="row">
+<!-- my content -->
+<h2>Products</h2>
         <a href="products-add.php" class="btn btn-primary mb-3">Add Product</a>
         <table class="table table-bordered">
             <thead>
@@ -66,6 +72,19 @@ if($result->num_rows > 0) {
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
-</body>
-</html>
+
+                    </div>
+                    <!-- Table Element -->
+
+                </div>
+            </main>
+            <a href="#" class="theme-toggle">
+                <i class="fa-regular fa-moon"></i>
+                <i class="fa-regular fa-sun"></i>
+            </a>
+<!-- footer -->
+<?php require __DIR__ . "/partials/footer.php"; ?>
+
+
+        
+    

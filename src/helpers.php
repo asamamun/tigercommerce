@@ -2,14 +2,14 @@
 if (!function_exists('settings')) {
     function settings()
     {
-       $root = "http://localhost/tigercommerce/"; 
+       $root = "http://localhost/POLY/Batch01/Class20-17-92024Project/tigercommerce/"; 
         return [
             'root'  => $root,
             'companyname'=> 'Gold Digger Enterprise',
             'logo'=>$root."admin/assets/img/logo.svg",
             'homepage'=> $root,
             'adminpage'=>$root.'admin/',
-            'vendorpage'=>$root.'vendor/',
+            'vendorpage'=>$root.'shop/',
             'hostname'=> 'localhost',
             'user'=> 'root',
             'password'=> '',

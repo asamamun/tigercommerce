@@ -43,18 +43,24 @@ if($vendor){
     
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendor Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- header -->
+<?php require __DIR__ . "/partials/header.php"; ?>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h2>Vendor Profile</h2>
+    <div class="wrapper">
+<!-- sidebar -->
+        <?php require __DIR__ . "/partials/leftbar.php"; ?>
+        <div class="main">
+        <?php require __DIR__ . "/partials/navbar.php"; ?>
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h4>Admin Dashboard</h4>
+                    </div>
+                    <div class="row">
+<!-- my content -->
+<h2>Vendor Profile</h2>
         <form action="" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="user_id" value="<?= $vendor['user_id'] ?>">
             <div class="mb-3">
@@ -76,6 +82,15 @@ if($vendor){
             
             <button type="submit" class="btn btn-primary">Update Profile</button>
         </form>
-    </div>
-</body>
-</html>
+
+                    </div>
+                    <!-- Table Element -->
+
+                </div>
+            </main>
+            <a href="#" class="theme-toggle">
+                <i class="fa-regular fa-moon"></i>
+                <i class="fa-regular fa-sun"></i>
+            </a>
+<!-- footer -->
+<?php require __DIR__ . "/partials/footer.php"; ?>
