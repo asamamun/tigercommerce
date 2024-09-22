@@ -41,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+<?php require "partials/header.php" ?>
 
-<?php include 'includes/head.php'; ?>
-</head>
 <body>
-<?php include 'includes/navbar.php'; ?>
-
-<div class="container mt-5">
+    <div class="container">
+        <?php require "partials/navbar.php" ?>
+        <hr>
+        <div class="container mt-5">
     <h2 class="text-center">Create an Account</h2>
     <!-- Show success or error messages -->
     <?php if ($error): ?>
@@ -89,9 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
     </form>
 </div>
+    </div>
 
-<?php include 'includes/footer.php'; ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/script.js"></script>
-</body>
-</html>
+    <?php require "partials/footer.php" ?>    
+
+
+
+

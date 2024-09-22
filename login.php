@@ -1,6 +1,7 @@
 <?php
 session_start();
-require 'config/database.php';
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/config/database.php';
 
 $error = '';
 
@@ -24,24 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $role;
 
             //get vendor id
-            if($role == "vendor") {
-                
-            $stmt = $conn->prepare("SELECT id FROM vendors WHERE user_id = ? limit 1");
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($vendor_id);
-            $stmt->fetch();
-            $_SESSION['vendor_id'] = $vendor_id;
+            if ($role == "vendor") {
+
+                $stmt = $conn->prepare("SELECT id FROM vendors WHERE user_id = ? limit 1");
+                $stmt->bind_param('i', $user_id);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($vendor_id);
+                $stmt->fetch();
+                $_SESSION['vendor_id'] = $vendor_id;
             }
-            
+
 
             if ($role == "admin") {
                 header('Location: admin/index.php');
-            } elseif($role == "vendor") {
+            } elseif ($role == "vendor") {
                 header('Location: shop/index.php');
-            }
-            else{
+            } else {
                 header('Location: index.php');
             }
             exit();
@@ -53,32 +53,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+<?php require "partials/header.php" ?>
 
-<?php include 'includes/head.php'; ?>
-</head>
 <body>
-    <?php include 'includes/navbar.php'; ?>
-
-    <div class="container mt-5">
-        <h2 class="text-center">Login</h2>
-        <form action="login.php" method="POST" class="mx-auto" style="max-width: 400px;">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-            <?php if ($error): ?>
-                <div class="alert alert-danger mt-3"><?php echo htmlspecialchars($error); ?></div>
-            <?php endif; ?>
-        </form>
+    <div class="container">
+        <?php require "partials/navbar.php" ?>
+        <hr>
+        <div class="container mt-5">
+            <h2 class="text-center">Login</h2>
+            <form action="login.php" method="POST" class="mx-auto" style="max-width: 400px;">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <?php if ($error): ?>
+                    <div class="alert alert-danger mt-3"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?>
+            </form>
+        </div>
     </div>
 
-    <?php include 'includes/footer.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-</body>
-</html>
+    <?php require "partials/footer.php" ?>    
