@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2024 at 12:51 PM
+-- Generation Time: Sep 22, 2024 at 02:20 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,6 +46,7 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
+  `icon` varchar(128) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -54,11 +55,47 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `parent_id`, `created_at`, `updated_at`) VALUES
-(3, 'Electronics', NULL, '2024-09-17 08:04:07', '2024-09-17 08:04:27'),
-(4, 'TV', 3, '2024-09-17 08:05:54', '2024-09-17 08:05:54'),
-(5, 'Garments', NULL, '2024-09-17 08:06:15', '2024-09-17 08:06:15'),
-(6, 'Shirt', 5, '2024-09-17 08:06:31', '2024-09-17 08:06:31');
+INSERT INTO `categories` (`id`, `name`, `parent_id`, `icon`, `created_at`, `updated_at`) VALUES
+(3, 'Electronics', NULL, '', '2024-09-17 08:04:07', '2024-09-17 08:04:27'),
+(4, 'TV', 3, '', '2024-09-17 08:05:54', '2024-09-17 08:05:54'),
+(5, 'Garments', NULL, '', '2024-09-17 08:06:15', '2024-09-17 08:06:15'),
+(6, 'Shirt', 5, '', '2024-09-17 08:06:31', '2024-09-17 08:06:31'),
+(8, 'Automobiles', NULL, '', '2024-09-22 07:49:56', '2024-09-22 07:49:56'),
+(9, 'Bike', 8, '', '2024-09-22 07:50:06', '2024-09-22 07:50:06'),
+(10, 'Car', 8, '', '2024-09-22 07:50:13', '2024-09-22 07:50:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`id`, `product_id`, `url`, `created_at`, `updated_at`) VALUES
+(1, 5, '66ea882f9c3072.93947399.webp', '2024-09-18 07:58:39', '2024-09-18 07:58:39'),
+(2, 5, '66ea882f9d2cb7.79383230.jpg', '2024-09-18 07:58:39', '2024-09-18 07:58:39'),
+(3, 5, '66ea882f9dbbe5.18041741.jpg', '2024-09-18 07:58:39', '2024-09-18 07:58:39'),
+(4, 7, '66ea8939a8f255.00691348.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(5, 7, '66ea8939abb7f6.15321936.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(6, 7, '66ea8939aca339.23833903.png', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(7, 7, '66ea8939ad4525.22856859.png', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(8, 7, '66ea8939adc6c5.50767581.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(9, 7, '66ea8939ae6200.90598023.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(10, 7, '66ea8939af9b25.43101834.webp', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(11, 7, '66ea8939b056d6.14542877.webp', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(12, 7, '66ea8939b0d936.27341598.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(13, 7, '66ea8939b14366.39170798.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05');
 
 -- --------------------------------------------------------
 
@@ -122,7 +159,6 @@ CREATE TABLE `products` (
   `description` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock_quantity` int(11) NOT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
   `status` enum('active','inactive') NOT NULL DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -132,8 +168,13 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `vendor_id`, `category_id`, `name`, `description`, `price`, `stock_quantity`, `image_url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, 'asdf', 'asdf', 333.00, 100, 'asdf.jpg', 'active', '2024-09-18 06:42:59', '2024-09-18 06:42:59');
+INSERT INTO `products` (`id`, `vendor_id`, `category_id`, `name`, `description`, `price`, `stock_quantity`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 'asdf', 'asdf', 333.00, 100, 'active', '2024-09-18 06:42:59', '2024-09-18 06:42:59'),
+(2, 1, 5, 'test123', 'test123', 123.00, 12, 'active', '2024-09-18 07:51:45', '2024-09-18 07:51:45'),
+(4, 1, 5, 'yyy', 'yyyy', 5555.00, 55, 'active', '2024-09-18 07:57:17', '2024-09-18 07:57:17'),
+(5, 1, 5, 'iiii', 'iiiii', 88.00, 8, 'active', '2024-09-18 07:58:39', '2024-09-18 07:58:39'),
+(7, 1, 5, 'tttt', 'ttttttttttttttt', 777.00, 77, 'active', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(9, 1, 5, 'wadwaw', 'dawdawd', 11.00, 1, 'active', '2024-09-18 08:16:04', '2024-09-18 08:16:04');
 
 -- --------------------------------------------------------
 
@@ -201,7 +242,9 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_
 (5, 'murgi', 'murgi@email.com', '$2y$10$o5MF40ZeiQWlTuaIjkrQpu5fk5htXvMlsYulsmpkhfZHcYDJn3jLG', NULL, NULL, 'vendor', '2024-09-17 06:21:12', '2024-09-17 06:21:12'),
 (6, 'mamun', 'mamun@gmail.com', '$2y$10$TFvH26tiw9JtdvZ7e36Tle9SdR44S81wzH/E0cIvqboZqlgDwfCRG', NULL, NULL, 'vendor', '2024-09-17 06:21:17', '2024-09-17 06:21:17'),
 (7, 'jannat', 'jannat@gmail.com', '$2y$10$Oaw7fsRI9RfoLpfcdp7DUOmle4.FQr9wqFuNNt0Wd92V42Su5/UEG', NULL, NULL, 'vendor', '2024-09-17 06:21:58', '2024-09-17 06:21:58'),
-(10, 'Fahima', 'fahima@gmail.com', '$2y$10$I/.p3kmLhdm1p/0m5Ie4UOpOBB99kNfQQjwZ2Eo/KdQ8Z0P4h4N1m', NULL, NULL, 'vendor', '2024-09-17 06:39:32', '2024-09-17 06:39:32');
+(10, 'Fahima', 'fahima@gmail.com', '$2y$10$I/.p3kmLhdm1p/0m5Ie4UOpOBB99kNfQQjwZ2Eo/KdQ8Z0P4h4N1m', NULL, NULL, 'vendor', '2024-09-17 06:39:32', '2024-09-17 06:39:32'),
+(11, 'dokan2', 'dokan2@gmail.com', '$2y$10$zepUiF2rMxLNUxk2lPu8LuiPiK2gSt7B.IFgdd0nxOA8NVvdxOl9a', NULL, NULL, 'vendor', '2024-09-18 08:05:05', '2024-09-18 08:05:05'),
+(12, 'sifat', 'sifat@gamil.com', '$2y$10$lX2kyBAp2v0ghK1mEUKbXeFgQNlnmpHX4gpDnMeiFiK02zYz9CFwa', NULL, NULL, 'vendor', '2024-09-22 07:44:49', '2024-09-22 07:44:49');
 
 -- --------------------------------------------------------
 
@@ -225,7 +268,8 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `user_id`, `company_name`, `description`, `logo_url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'active', '2024-09-18 05:59:56', '2024-09-18 06:38:24');
+(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'active', '2024-09-18 05:59:56', '2024-09-18 06:38:24'),
+(2, 11, 'rrr', 'rrr', '11.jpg', 'inactive', '2024-09-18 08:14:33', '2024-09-18 08:14:33');
 
 -- --------------------------------------------------------
 
@@ -258,6 +302,13 @@ ALTER TABLE `cart`
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parent_id` (`parent_id`);
+
+--
+-- Indexes for table `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `orders`
@@ -341,7 +392,13 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `images`
+--
+ALTER TABLE `images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -365,7 +422,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -383,13 +440,13 @@ ALTER TABLE `shipping_addresses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
@@ -413,6 +470,12 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `images`
+--
+ALTER TABLE `images`
+  ADD CONSTRAINT `fk_images_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `orders`
