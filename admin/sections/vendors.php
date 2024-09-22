@@ -78,15 +78,15 @@ if ($result->num_rows > 0) {
                                     <td>
                                         <?php if ($vendor['status'] == 'inactive'): ?>
                                             <a href="vendors.php?status=active&id=<?php echo $vendor['id']; ?>" class="btn btn-success btn-sm">
-                                                <i class="bi bi-check"></i> Activate
+                                                <i class="bi bi-check"></i>
                                             </a>
                                         <?php else: ?>
                                             <a href="vendors.php?status=inactive&id=<?php echo $vendor['id']; ?>" class="btn btn-warning btn-sm">
-                                                <i class="bi bi-pause"></i> Deactivate
+                                                <i class="bi bi-pause"></i>
                                             </a>
                                         <?php endif; ?>
                                         <a href="vendors.php?status=suspended&id=<?php echo $vendor['id']; ?>" class="btn btn-danger btn-sm">
-                                            <i class="bi bi-x-circle"></i> Suspend
+                                            <i class="bi bi-x-circle"></i>
                                         </a>
                                     </td>
                                 </tr>

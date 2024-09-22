@@ -17,6 +17,21 @@ if (isset($_GET['status']) && isset($_GET['id'])) {
     exit();
 }
 
+// Handle Product Deletion
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // Delete the product
+    $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    // Redirect after deletion
+    header("Location: products.php");
+    exit();
+}
+
 // Fetch Products
 $products = [];
 $result = $conn->query("
@@ -44,9 +59,6 @@ if ($result->num_rows > 0) {
         <div class="col-lg-9 col-md-8">
             <div class="d-flex justify-content-between align-items-center my-4 product-header">
                 <h2 class="product-title">Manage Products</h2>
-                <a href="add_product.php" class="btn btn-primary">
-                    <i class="bi bi-plus"></i> Add Product
-                </a>
             </div>
 
             <!-- Products Table -->
@@ -90,18 +102,20 @@ if ($result->num_rows > 0) {
                                         </span>
                                     </td>
                                     <td>
-                                        <?php if ($product['status'] == 'inactive'): ?>
-                                            <a href="products.php?status=active&id=<?php echo $product['id']; ?>" class="btn btn-success btn-sm">
-                                                <i class="bi bi-check"></i> Activate
+                                        <div class="d-flex justify-content-around gap-2">
+                                            <?php if ($product['status'] == 'inactive'): ?>
+                                                <a href="products.php?status=active&id=<?php echo $product['id']; ?>" class="btn btn-success btn-sm">
+                                                    <i class="bi bi-check"></i>
+                                                </a>
+                                            <?php else: ?>
+                                                <a href="products.php?status=inactive&id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">
+                                                    <i class="bi bi-pause"></i>
+                                                </a>
+                                            <?php endif; ?>
+                                            <a href="products.php?action=delete&id=<?php echo $product['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?');">
+                                                <i class="bi bi-trash"></i>
                                             </a>
-                                        <?php else: ?>
-                                            <a href="products.php?status=inactive&id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">
-                                                <i class="bi bi-pause"></i> Deactivate
-                                            </a>
-                                        <?php endif; ?>
-                                        <a href="edit_product.php?id=<?php echo $product['id']; ?>" class="btn btn-info btn-sm">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -1,9 +1,13 @@
-<?php require __DIR__. '../../../vendor/autoload.php'; ?>
+<?php require __DIR__ . '../../../vendor/autoload.php'; ?>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm">
     <div class="container-fluid">
         <!-- Website Name -->
         <a class="navbar-brand" href="#">
             <i class="bi bi-shop-window"></i> TigerCommerce
+            <!-- Sidebar Toggle Button -->
+            <button class="btn" id="toggleSidebarBtn" style="background-color: transparent; border: none;">
+                <i class="bi bi-list"></i>
+            </button>
         </a>
 
         <!-- Search Bar and Logout -->
@@ -17,3 +21,13 @@
         </div>
     </div>
 </nav>
+<script>
+    document.getElementById('toggleSidebarBtn').addEventListener('click', function() {
+        var sidebar = document.getElementById('sidebar');
+        if (sidebar.style.display === 'none') {
+            sidebar.style.display = 'flex';
+        } else {
+            sidebar.style.display = 'none';
+        }
+    });
+</script>

@@ -16,6 +16,23 @@ if (isset($_POST['add_category'])) {
     exit();
 }
 
+// Handle Edit Category Form Submission
+if (isset($_POST['edit_category'])) {
+    $category_id = $_POST['category_id'];
+    $category_name = $_POST['category_name'];
+    $parent_id = $_POST['parent_id'] ? $_POST['parent_id'] : NULL;
+
+    // Update the category
+    $stmt = $conn->prepare("UPDATE categories SET name = ?, parent_id = ? WHERE id = ?");
+    $stmt->bind_param("sii", $category_name, $parent_id, $category_id);
+    $stmt->execute();
+    $stmt->close();
+
+    // Redirect to prevent form resubmission
+    header("Location: category.php");
+    exit();
+}
+
 // Handle Delete Category
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
@@ -54,7 +71,7 @@ if ($result->num_rows > 0) {
             <div class="d-flex justify-content-between align-items-center my-4 category-header">
                 <h2 class="category-title">Manage Categories</h2>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
-                    <i class="bi bi-plus-circle"></i> Add Category
+                    <i class="bi bi-plus-circle"></i>
                 </button>
             </div>
 
@@ -93,8 +110,14 @@ if ($result->num_rows > 0) {
                                     </td>
                                     <td>
                                         <a href="category.php?delete=<?php echo $category['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this category?');">
-                                            <i class="bi bi-trash"></i> Delete
+                                            <i class="bi bi-trash"></i>
                                         </a>
+                                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal" 
+                                                data-id="<?php echo $category['id']; ?>" 
+                                                data-name="<?php echo htmlspecialchars($category['name']); ?>" 
+                                                data-parent="<?php echo $category['parent_id']; ?>">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -142,8 +165,67 @@ if ($result->num_rows > 0) {
                 </div>
             </div>
 
+            <!-- Edit Category Modal -->
+            <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="POST" action="">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="editCategoryId" name="category_id">
+                                <div class="mb-3">
+                                    <label for="editCategoryName" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="editCategoryName" name="category_name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editParentCategory" class="form-label">Parent Category (Optional)</label>
+                                    <select class="form-select" id="editParentCategory" name="parent_id">
+                                        <option value="">None</option>
+                                        <?php
+                                        // Fetch categories for parent selection
+                                        foreach ($categories as $cat) {
+                                            echo '<option value="' . $cat['id'] . '">' . htmlspecialchars($cat['name']) . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" name="edit_category" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+
+
+<script>
+    // Edit Category Modal
+    document.addEventListener('DOMContentLoaded', function () {
+        var editCategoryModal = document.getElementById('editCategoryModal');
+        editCategoryModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+            var parent = button.getAttribute('data-parent');
+
+            var modalIdInput = editCategoryModal.querySelector('#editCategoryId');
+            var modalNameInput = editCategoryModal.querySelector('#editCategoryName');
+            var modalParentSelect = editCategoryModal.querySelector('#editParentCategory');
+
+            modalIdInput.value = id;
+            modalNameInput.value = name;
+            modalParentSelect.value = parent;
+        });
+    });
+</script>
 
 <?php include('../partials/footer.php'); ?>

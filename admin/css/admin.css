@@ -344,8 +344,8 @@ h4 {
     font-size: 1rem;
     border: none;
     border-radius: 5px;
-    color: white;
-    background: #007bff;
+    /* color: white;
+    background: #007bff; */
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
 }

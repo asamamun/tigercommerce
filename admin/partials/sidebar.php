@@ -1,6 +1,5 @@
-<!-- /admin/partials/sidebar.php -->
 <?php require __DIR__. '../../../vendor/autoload.php'; ?>
-<nav class="navbar navbar-dark bg-dark flex-column sidebar" style="min-height: 100vh;">
+<nav class="navbar navbar-dark bg-dark flex-column sidebar" id="sidebar" style="min-height: 100vh;">
     <a class="navbar-brand mb-3" href="<?= settings()['adminpage']; ?>index.php">
         <i class="bi bi-speedometer2"></i> Admin Panel
     </a>
@@ -30,11 +29,10 @@
                 <i class="bi bi-cart"></i> Orders
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="<?= settings()['adminpage']; ?>sections/display.php">
+                <i class="bi bi-images"></i> Carousel Images
+            </a>
+        </li>
     </ul>
 </nav>
-
-
-
-
-
-
