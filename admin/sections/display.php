@@ -16,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
     $maxFileSize = 5 * 1024 * 1024; // 5MB
 
+    $title = $_POST['title'];
+    $url = $_POST['url'];
+
     if ($_FILES['image']['error'] == 0 && in_array($_FILES['image']['type'], $allowedTypes) && $_FILES['image']['size'] <= $maxFileSize) {
         $fileName = uniqid() . '_' . $_FILES['image']['name'];
         $uploadPath = $uploadDir . $fileName;
@@ -26,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
             $row = $result->fetch_assoc();
             $count = $row['count'];
 
-            if ($count >= 3) {
+            if ($count >= 5) {
                 // Delete the oldest image
                 $result = $conn->query("SELECT file_path FROM carousel_images ORDER BY id ASC LIMIT 1");
                 $row = $result->fetch_assoc();
@@ -37,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
             }
 
             // Insert new image
-            $stmt = $conn->prepare("INSERT INTO carousel_images (file_path) VALUES (?)");
-            $stmt->bind_param("s", $uploadPath);
+            $stmt = $conn->prepare("INSERT INTO carousel_images (title,url,file_path) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss",$title,$url, $fileName);
             $stmt->execute();
             $stmt->close();
 
@@ -71,11 +74,19 @@ while ($row = $result->fetch_assoc()) {
         <div class="col-lg-9 col-md-8">
             <h2 class="my-4">Manage Carousel Images</h2>
 
-            <?php if ($message): ?>
-                <div class="alert alert-info"><?= $message ?></div>
+            <?php if (isset($message)): ?>
+                <div class="alert alert-info"><?= $message??'' ?></div>
             <?php endif; ?>
 
             <form action="" method="post" enctype="multipart/form-data" class="mb-4">
+               <div class="mb-3">
+                <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="title" name="title" required>
+               </div>
+               <div class="mb-3">
+                <label for="url" class="form-label">URL <span class="text-danger"></label>
+                <input type="url" class="form-control" id="url" name="url">
+               </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload Image (JPG, PNG or GIF, max 5MB)</label>
                     <input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/png,image/gif" required>
@@ -87,7 +98,9 @@ while ($row = $result->fetch_assoc()) {
             <div class="row">
                 <?php foreach ($images as $image): ?>
                     <div class="col-md-4 mb-3">
-                        <img src="<?= $image['file_path'] ?>" class="img-fluid" alt="Carousel Image">
+                        <h4><?= $image['title'] ?></h4>
+                        <p><?= $image['url'] ?></p>
+                        <img src="../../uploads/<?= $image['file_path'] ?>" class="img-fluid" alt="Carousel Image">
                     </div>
                 <?php endforeach; ?>
             </div>

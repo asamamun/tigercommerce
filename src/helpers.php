@@ -2,7 +2,7 @@
 if (!function_exists('settings')) {
     function settings()
     {
-       $root = "http://localhost/tigercommerce/"; 
+       $root = "http://192.168.54.81/POLY/Batch01/Class20-17-92024Project/tigercommerce/"; 
         return [
             'root'  => $root,
             'companyname'=> 'Gold Digger Enterprise',

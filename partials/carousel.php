@@ -1,8 +1,9 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config/database.php';
 
 // Fetch carousel images
-$result = $conn->query("SELECT * FROM carousel_images ORDER BY id DESC LIMIT 3");
+$result = $conn->query("SELECT * FROM carousel_images where status=1 ORDER BY id DESC LIMIT 5");
 $images = [];
 while ($row = $result->fetch_assoc()) {
     $images[] = $row;
@@ -18,7 +19,11 @@ while ($row = $result->fetch_assoc()) {
     <div class="carousel-inner">
         <?php foreach ($images as $index => $image): ?>
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                <img src="<?= $image['file_path'] ?>" class="d-block w-100" alt="Carousel Image <?= $index + 1 ?>">
+                <img src="uploads/<?= $image['file_path'] ?>" class="d-block w-100" alt="Carousel Image <?= $index + 1 ?>">
+                <div class="carousel-caption d-none d-md-block">
+        <a href="<?= $image['url'] ?>" class="stretched-link" target="_blank"> <h5><?= $image['title'] ?></h5></a>
+        
+      </div>
             </div>
         <?php endforeach; ?>
     </div>

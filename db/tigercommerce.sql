@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2024 at 02:20 PM
+-- Generation Time: Sep 23, 2024 at 01:11 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `tigercommerce`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carousel_images`
+--
+
+CREATE TABLE `carousel_images` (
+  `id` int(11) NOT NULL,
+  `title` varchar(512) DEFAULT NULL,
+  `url` varchar(512) DEFAULT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `carousel_images`
+--
+
+INSERT INTO `carousel_images` (`id`, `title`, `url`, `file_path`, `status`, `created_at`) VALUES
+(5, 'A', 'https://getbootstrap.com/', '66f10a07d659e_01.png', 1, '2024-09-23 06:26:15'),
+(7, 'CC', 'https://icons.getbootstrap.com/', '66f10a2c18ac2_05.png', 1, '2024-09-23 06:26:52'),
+(9, 'sadf', 'https://fast.com/', '66f10c70dc157_03.png', 1, '2024-09-23 06:36:32');
 
 -- --------------------------------------------------------
 
@@ -174,7 +198,8 @@ INSERT INTO `products` (`id`, `vendor_id`, `category_id`, `name`, `description`,
 (4, 1, 5, 'yyy', 'yyyy', 5555.00, 55, 'active', '2024-09-18 07:57:17', '2024-09-18 07:57:17'),
 (5, 1, 5, 'iiii', 'iiiii', 88.00, 8, 'active', '2024-09-18 07:58:39', '2024-09-18 07:58:39'),
 (7, 1, 5, 'tttt', 'ttttttttttttttt', 777.00, 77, 'active', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
-(9, 1, 5, 'wadwaw', 'dawdawd', 11.00, 1, 'active', '2024-09-18 08:16:04', '2024-09-18 08:16:04');
+(9, 1, 5, 'wadwaw', 'dawdawd', 11.00, 1, 'active', '2024-09-18 08:16:04', '2024-09-18 08:16:04'),
+(10, 1, 9, 'Super bike', 'sefesfsefsef', 1000.00, 11, 'active', '2024-09-23 07:09:18', '2024-09-23 07:09:18');
 
 -- --------------------------------------------------------
 
@@ -268,7 +293,7 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `user_id`, `company_name`, `description`, `logo_url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'active', '2024-09-18 05:59:56', '2024-09-18 06:38:24'),
+(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'active', '2024-09-18 05:59:56', '2024-09-23 06:17:12'),
 (2, 11, 'rrr', 'rrr', '11.jpg', 'inactive', '2024-09-18 08:14:33', '2024-09-18 08:14:33');
 
 -- --------------------------------------------------------
@@ -287,6 +312,12 @@ CREATE TABLE `wishlist` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `carousel_images`
+--
+ALTER TABLE `carousel_images`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cart`
@@ -383,6 +414,12 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `carousel_images`
+--
+ALTER TABLE `carousel_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
@@ -422,7 +459,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `reviews`
