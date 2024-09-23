@@ -1,7 +1,7 @@
 # tigercommerce
 Polytechnic 2024 batches multivenfor ecommerce in php-mysql
 
-#create folders
+# create folders
 -uploads folder, 
 --uploads/profile_pics, 
 --uploads/vendor ,  
