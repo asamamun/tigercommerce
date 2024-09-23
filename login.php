@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 <?php require "partials/header.php" ?>
-
+</head>
 <body>
     <div class="container">
         <?php require "partials/navbar.php" ?>
@@ -78,4 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <?php require "partials/footer.php" ?>    
+    <?php require "partials/footer.php" ?>   
+    </body>
+</html> 

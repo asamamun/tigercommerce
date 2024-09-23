@@ -131,6 +131,8 @@ else {
 
         }
 </style>
+</head>
+
 <body>
     <div class="container-fluid">
     <?php require "partials/navbar.php" ?>
@@ -207,7 +209,7 @@ else {
                             <a href="#" class="shadow btn custom-btn ">Wishlist</a>
                         </div>
                         <div class="block">
-                            <button class="shadow btn custom-btn">Add to cart</button>
+                            <button class="shadow btn custom-btn" onclick="addToCart(<?= $product['id'] ?>, <?= $product['price'] ?>, '<?= $product['name'] ?>', '<?= $images[0]['url']??'' ?>')">Add to cart</button>
                         </div>
 
                         <div class="block quantity">
@@ -304,3 +306,6 @@ else {
     </script>
 
     <?php require "partials/footer.php" ?>
+    <script src="assets/js/cart-script.js"></script>
+    </body>
+</html>

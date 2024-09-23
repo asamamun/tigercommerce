@@ -5,6 +5,7 @@ require __DIR__.'/config/database.php';
 require __DIR__.'/partials/commonfx.php';
 ?>
 <?php require "partials/header.php" ?>
+</head>
 <body>
     <div class="container-fluid">
     <?php require "partials/navbar.php" ?>
@@ -45,3 +46,5 @@ require __DIR__.'/partials/commonfx.php';
     </div>
 
     <?php require "partials/footer.php" ?>
+    </body>
+</html>
