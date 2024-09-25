@@ -65,7 +65,7 @@ while ($row = $result->fetch_assoc()) {
 <?php include('../partials/header.php'); ?>
 <?php include('../partials/navbar.php'); ?>
 
-<div class="container-fluid">
+<div class="container-fluid dashboard-container">
     <div class="row">
         <div class="col-lg-3 col-md-4">
             <?php include('../partials/sidebar.php'); ?>

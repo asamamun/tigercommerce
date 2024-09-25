@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm">
     <div class="container-fluid">
         <!-- Website Name -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="<?= settings()['root']; ?>index.php">
             <i class="bi bi-shop-window"></i> TigerCommerce
             <!-- Sidebar Toggle Button -->
             <button class="btn" id="toggleSidebarBtn" style="background-color: transparent; border: none;">

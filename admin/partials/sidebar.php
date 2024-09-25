@@ -10,6 +10,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link text-light" href="<?= settings()['adminpage']; ?>sections/display.php">
+                <i class="bi bi-images"></i> Display
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-light" href="<?= settings()['adminpage']; ?>sections/users.php">
                 <i class="bi bi-person"></i> Users
             </a>
@@ -27,11 +32,6 @@
         <li class="nav-item">
             <a class="nav-link text-light" href="<?= settings()['adminpage']; ?>sections/orders.php">
                 <i class="bi bi-cart"></i> Orders
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" href="<?= settings()['adminpage']; ?>sections/display.php">
-                <i class="bi bi-images"></i> Carousel Images
             </a>
         </li>
     </ul>

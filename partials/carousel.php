@@ -10,8 +10,16 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 
-<div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
+<style>
+.carousel-item img {
+    width: 100%;
+    height: 400px; /* Set the desired height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+</style>
+
+<div id="mainCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+    <div class="carousel-indicators mb-3">
         <?php foreach ($images as $index => $image): ?>
             <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="<?= $index ?>" <?= $index === 0 ? 'class="active"' : '' ?> aria-current="true" aria-label="Slide <?= $index + 1 ?>"></button>
         <?php endforeach; ?>
@@ -21,9 +29,10 @@ while ($row = $result->fetch_assoc()) {
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                 <img src="uploads/<?= $image['file_path'] ?>" class="d-block w-100" alt="Carousel Image <?= $index + 1 ?>">
                 <div class="carousel-caption d-none d-md-block">
-        <a href="<?= $image['url'] ?>" class="stretched-link" target="_blank"> <h5><?= $image['title'] ?></h5></a>
-        
-      </div>
+                    <a href="<?= $image['url'] ?>" class="stretched-link" target="_blank">
+                        <h5 class="bg-dark bg-opacity-50 p-2 rounded"><?= $image['title'] ?></h5>
+                    </a>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>

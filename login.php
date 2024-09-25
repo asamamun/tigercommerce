@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['vendor_id'] = $vendor_id;
             }
 
-
             if ($role == "admin") {
                 header('Location: admin/index.php');
             } elseif ($role == "vendor") {
@@ -56,12 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php require "partials/header.php" ?>
 </head>
 <body>
+<?php require "partials/navbar.php" ?>
     <div class="container">
-        <?php require "partials/navbar.php" ?>
-        <hr>
         <div class="container mt-5">
-            <h2 class="text-center">Login</h2>
-            <form action="login.php" method="POST" class="mx-auto" style="max-width: 400px;">
+            <h2 class="text-center mb-4">Login</h2>
+            <form action="login.php" method="POST" class="mx-auto p-4 border rounded-3 shadow-sm" style="max-width: 400px;">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>
@@ -80,4 +78,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <?php require "partials/footer.php" ?>   
     </body>
-</html> 
+</html>

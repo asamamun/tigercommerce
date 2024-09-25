@@ -8,14 +8,13 @@ require __DIR__ . '/config/database.php';
 
 </head>
 <body>
+<?php require "partials/navbar.php" ?>
     <div class="container">
-        <?php require "partials/navbar.php" ?>
-        <hr>
-        <div class="container mt-5">
-            <h2 class="text-center">Cart Details</h2>
-            <!-- cart details -->
-            <table class="table">
-                <thead>
+        <h2 class="text-center mb-4">Cart Details</h2>
+        <!-- cart details -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-light">
                     <tr>
                         <th>Product ID</th>
                         <th>Product</th>
@@ -30,28 +29,23 @@ require __DIR__ . '/config/database.php';
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
+                        <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
                         <td id="grandTotal"></td>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
-            <!-- cart details end  -->
-             <!-- place order start -->
-              <div class="flex justify-content-center">
-                <a class="btn btn-lg btn-primary" id="placeOrderBtn" href="place-order.php">Place Order</a>
-
-              </div>
-              
-             <!-- place order end -->
-
-            
-
         </div>
+        <!-- cart details end  -->
+        
+        <!-- place order start -->
+        <div class="d-flex justify-content-center mt-4">
+            <a class="btn btn-lg btn-primary" id="placeOrderBtn" href="place-order.php">Place Order</a>
+        </div>
+        <!-- place order end -->
     </div>
 
     <?php require "partials/footer.php" ?>
     <script src="assets/js/cart-page.js"></script>
-    </body>
+</body>
 </html>
-      

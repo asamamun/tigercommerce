@@ -7,10 +7,10 @@ function generateProductCard($product) {
             <a class="text-decoration-none" href="product-details.php?id={$product['id']}">
             <img src="{$imageUrl}" class="card-img-top" alt="{$product['name']}" style="height: 200px; object-fit: cover;">
             <div class="card-body">
-                <h5 class="card-title text-truncate">{$product['name']}</h5>
-                <p class="card-text">{$product['description']}</p>
-                <p class="card-text"><strong>Price: $</strong>{$product['price']}</p>
-                <p class="card-text"><strong>Stock: </strong>{$product['stock_quantity']}</p>
+                <h5 class="card-title text-truncate mb-2">{$product['name']}</h5>
+                <p class="card-text mb-3">{$product['description']}</p>
+                <p class="card-text mb-1"><strong>Price: $</strong>{$product['price']}</p>
+                <p class="card-text mb-3"><strong>Stock: </strong>{$product['stock_quantity']}</p>
             </div>
             </a>
             <div class="card-footer">
@@ -21,3 +21,4 @@ function generateProductCard($product) {
 HTML;
     return $html;
 }
+?>
