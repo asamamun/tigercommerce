@@ -129,7 +129,7 @@ if (isset($_GET['id'])) {
 
 <body>
     <?php require "partials/navbar.php" ?>
-    <div class="container my-5">
+    <div class="container main-content my-5">
         <div class="row">
             <div class="col-md-2 mb-4">
                 <?php include('partials/sidebar.php'); ?>

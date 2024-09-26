@@ -9,7 +9,7 @@ require __DIR__ . '/config/database.php';
 </head>
 <body>
 <?php require "partials/navbar.php" ?>
-    <div class="container">
+    <div class="container main-content">
         <h2 class="text-center mb-4">Cart Details</h2>
         <!-- cart details -->
         <div class="table-responsive">

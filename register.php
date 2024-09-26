@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <?php require "partials/header.php" ?>
 </head>
+
 <body>
-    <div class="container">
-        <?php require "partials/navbar.php" ?>
-        <hr>
+    <?php require "partials/navbar.php" ?>
+    <div class="container main-content">
         <div class="container mt-5">
             <h2 class="text-center mb-4">Create an Account</h2>
             <!-- Show success or error messages -->
@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <?php require "partials/footer.php" ?> 
+    <?php require "partials/footer.php" ?>
 </body>
+
 </html>

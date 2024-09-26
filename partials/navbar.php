@@ -9,15 +9,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item position-relative">
-          <a class="nav-link" aria-disabled="true" href="cart.php">
-            <i class="bi bi-cart4"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">
-              6              
-            </span>
-          </a>
-        </li>
-      </ul>
+        <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) { ?>
+          <li class="nav-item position-relative">
+            <a class="nav-link" aria-disabled="true" href="cart.php">
+              <i class="bi bi-cart4"></i>
+                <?php
+                $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+                ?>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">
+                <?php echo $cart_count; ?>
+                </span>
+            </a>
+          </li>
+        <?php } ?>
+        </ul>
       <div class="navbar-search me-auto mx-5">
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

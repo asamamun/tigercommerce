@@ -9,7 +9,7 @@ require __DIR__ . '/partials/commonfx.php';
 
 <body>
     <?php require "partials/navbar.php" ?>
-    <div class="container">
+    <div class="container main-content">
         <?php require "partials/carousel.php" ?>
         <div class="row mt-4">
             <div class="col-md-2 mb-4">
