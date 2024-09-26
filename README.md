@@ -1,5 +1,5 @@
 # tigercommerce
-Polytechnic 2024 batches multivenfor ecommerce in php-mysql
+Polytechnic 2024 batches multivendor ecommerce in php-mysql
 
 # create folders
 -uploads folder, 
