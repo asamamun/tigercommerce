@@ -146,53 +146,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
                 <div class="mb-3">
                     <label for="deliveryLocation" class="form-label">Select Delivery Location:</label>
                     <select class="form-select" name="delivery_location" id="deliveryLocation" required>
-                        <option value="Mirpur">Mirpur</option>
-                        <option value="Gulshan">Gulshan</option>
-                        <option value="Dhanmondi">Dhanmondi</option>
-                        <option value="Banani">Banani</option>
-                        <option value="Uttara">Uttara</option>
-                        <option value="Bashundhara">Bashundhara</option>
-                        <option value="Baridhara">Baridhara</option>
-                        <option value="Mohammadpur">Mohammadpur</option>
-                        <option value="Tejgaon">Tejgaon</option>
-                        <option value="Shahbag">Shahbag</option>
-                        <option value="Motijheel">Motijheel</option>
-                        <option value="Farmgate">Farmgate</option>
-                        <option value="Paltan">Paltan</option>
-                        <option value="Khilgaon">Khilgaon</option>
-                        <option value="Badda">Badda</option>
-                        <option value="Jatrabari">Jatrabari</option>
-                        <option value="Malibagh">Malibagh</option>
-                        <option value="Wari">Wari</option>
-                        <option value="Lalbagh">Lalbagh</option>
-                        <option value="Shantinagar">Shantinagar</option>
+                        <option value="Adabor">Adabor</option>
+                        <option value="Ashulia">Ashulia</option>
                         <option value="Azimpur">Azimpur</option>
-                        <option value="Elephant Road">Elephant Road</option>
+                        <option value="Badda">Badda</option>
+                        <option value="Banani">Banani</option>
                         <option value="Banasree">Banasree</option>
-                        <option value="Mohakhali">Mohakhali</option>
-                        <option value="Rampura">Rampura</option>
-                        <option value="Shyamoli">Shyamoli</option>
-                        <option value="Tongi">Tongi</option>
-                        <option value="Kuril">Kuril</option>
+                        <option value="Baridhara">Baridhara</option>
+                        <option value="Bashabo">Bashabo</option>
+                        <option value="Bashundhara">Bashundhara</option>
+                        <option value="Bijoy Sarani">Bijoy Sarani</option>
+                        <option value="Chakbazar">Chakbazar</option>
+                        <option value="Demra">Demra</option>
+                        <option value="Dhanmondi">Dhanmondi</option>
+                        <option value="Dohar">Dohar</option>
+                        <option value="Elephant Road">Elephant Road</option>
+                        <option value="Farmgate">Farmgate</option>
+                        <option value="Gulshan">Gulshan</option>
+                        <option value="Hazaribagh">Hazaribagh</option>
+                        <option value="Jatrabari">Jatrabari</option>
+                        <option value="Kamrangirchar">Kamrangirchar</option>
                         <option value="Kalyanpur">Kalyanpur</option>
                         <option value="Kazipara">Kazipara</option>
-                        <option value="Shakertek">Shakertek</option>
-                        <option value="Adabor">Adabor</option>
-                        <option value="Hazaribagh">Hazaribagh</option>
-                        <option value="Moghbazar">Moghbazar</option>
-                        <option value="Bijoy Sarani">Bijoy Sarani</option>
                         <option value="Kawran Bazar">Kawran Bazar</option>
-                        <option value="Kamrangirchar">Kamrangirchar</option>
-                        <option value="Dohar">Dohar</option>
-                        <option value="Demra">Demra</option>
                         <option value="Keraniganj">Keraniganj</option>
-                        <option value="Savar">Savar</option>
-                        <option value="Ashulia">Ashulia</option>
-                        <option value="Nawabganj">Nawabganj</option>
-                        <option value="Shyampur">Shyampur</option>
-                        <option value="Chakbazar">Chakbazar</option>
+                        <option value="Khilgaon">Khilgaon</option>
                         <option value="Khilkhet">Khilkhet</option>
-                        <option value="Bashabo">Bashabo</option>
+                        <option value="Kuril">Kuril</option>
+                        <option value="Lalbagh">Lalbagh</option>
+                        <option value="Malibagh">Malibagh</option>
+                        <option value="Mirpur">Mirpur</option>
+                        <option value="Moghbazar">Moghbazar</option>
+                        <option value="Mohakhali">Mohakhali</option>
+                        <option value="Mohammadpur">Mohammadpur</option>
+                        <option value="Motijheel">Motijheel</option>
+                        <option value="Nawabganj">Nawabganj</option>
+                        <option value="Paltan">Paltan</option>
+                        <option value="Rampura">Rampura</option>
+                        <option value="Savar">Savar</option>
+                        <option value="Shahbag">Shahbag</option>
+                        <option value="Shakertek">Shakertek</option>
+                        <option value="Shantinagar">Shantinagar</option>
+                        <option value="Shyamoli">Shyamoli</option>
+                        <option value="Shyampur">Shyampur</option>
+                        <option value="Tejgaon">Tejgaon</option>
+                        <option value="Tongi">Tongi</option>
+                        <option value="Uttara">Uttara</option>
+                        <option value="Wari">Wari</option>
+
                         <!-- Add other areas here -->
                     </select>
                 </div>
@@ -228,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         const transactionIdGroup = document.getElementById('transactionIdGroup');
 
         // Show Transaction ID input if bKash or Nagad is selected
-        paymentMethodSelect.addEventListener('change', function() {
+        paymentMethodSelect.addEventListener('change', function () {
             if (this.value === 'bkash' || this.value === 'nagad') {
                 transactionIdGroup.style.display = 'block';
             } else {
