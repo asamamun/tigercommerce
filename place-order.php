@@ -2,10 +2,13 @@
 session_start();
 require __DIR__ . '/vendor/autoload.php'; // Dompdf autoload
 require __DIR__ . '/config/database.php';
+
 use Dompdf\Dompdf;
 
-function generateReceipt($orderId, $totalAmount, $paymentMethod) {
-    // Generate HTML for the receipt
+function generateReceipt($orderId, $totalAmount, $paymentMethod, $deliveryLocation, $transactionId, $customerName)
+{
+    // Add TigerCommerce logo (replace with your logo path)
+    $logoPath = __DIR__ . '/uploads/logo.jpg';
     $receiptHTML = '
     <html>
     <head>
@@ -29,6 +32,12 @@ function generateReceipt($orderId, $totalAmount, $paymentMethod) {
                 text-align: center;
                 padding-bottom: 20px;
                 border-bottom: 2px solid #4CAF50;
+            }
+            .header img {
+                margin-bottom: 10px;
+                height: 50px;
+                width: 50px; 
+                border-radius: 50%;
             }
             .header h1 {
                 margin: 0;
@@ -57,12 +66,16 @@ function generateReceipt($orderId, $totalAmount, $paymentMethod) {
     <body>
         <div class="receipt-container">
             <div class="header">
-                <h1>Order Receipt</h1>
+                <img src="' . $logoPath . '" alt="TigerCommerce Logo">
+                <h1>Order Receipt - TigerCommerce</h1>
             </div>
             <div class="content">
                 <h3>Order ID: ' . $orderId . '</h3>
+                <p>Customer Name: ' . htmlspecialchars($customerName) . '</p>
                 <p>Total Amount: $' . number_format($totalAmount, 2) . '</p>
                 <p>Payment Method: ' . ucfirst($paymentMethod) . '</p>
+                <p>Transaction ID: ' . htmlspecialchars($transactionId) . '</p>
+                <p>Delivery Location: ' . htmlspecialchars($deliveryLocation) . '</p>
                 <p>Order Date: ' . date('Y-m-d') . '</p>
             </div>
             <div class="footer">
@@ -88,8 +101,11 @@ function generateReceipt($orderId, $totalAmount, $paymentMethod) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && $_SESSION['role'] == 'customer') {
         $userId = $_SESSION['user_id'];
+        $customerName = $_POST['customer_name'];
+        $deliveryLocation = $_POST['delivery_location'];
         $totalAmount = $_POST['total_amount'];
         $paymentMethod = $_POST['payment_method'];
+        $transactionId = isset($_POST['transaction_id']) ? $_POST['transaction_id'] : 'N/A';
 
         // Insert the order into the orders table
         $stmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, 'pending')");
@@ -107,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         $stmt->close();
 
         // Generate and download the beautiful receipt as PDF
-        generateReceipt($orderId, $totalAmount, $paymentMethod);
+        generateReceipt($orderId, $totalAmount, $paymentMethod, $deliveryLocation, $transactionId, $customerName);
     } else {
         echo 'You must be logged in to place an order.';
     }
@@ -116,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
 
 <?php require "partials/header.php"; ?>
 </head>
+
 <body>
     <?php require "partials/navbar.php"; ?>
     <div class="container main-content">
@@ -127,12 +144,73 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
             <!-- Payment form start -->
             <form method="POST" action="place-order.php">
                 <div class="mb-3">
+                    <label for="deliveryLocation" class="form-label">Select Delivery Location:</label>
+                    <select class="form-select" name="delivery_location" id="deliveryLocation" required>
+                        <option value="Mirpur">Mirpur</option>
+                        <option value="Gulshan">Gulshan</option>
+                        <option value="Dhanmondi">Dhanmondi</option>
+                        <option value="Banani">Banani</option>
+                        <option value="Uttara">Uttara</option>
+                        <option value="Bashundhara">Bashundhara</option>
+                        <option value="Baridhara">Baridhara</option>
+                        <option value="Mohammadpur">Mohammadpur</option>
+                        <option value="Tejgaon">Tejgaon</option>
+                        <option value="Shahbag">Shahbag</option>
+                        <option value="Motijheel">Motijheel</option>
+                        <option value="Farmgate">Farmgate</option>
+                        <option value="Paltan">Paltan</option>
+                        <option value="Khilgaon">Khilgaon</option>
+                        <option value="Badda">Badda</option>
+                        <option value="Jatrabari">Jatrabari</option>
+                        <option value="Malibagh">Malibagh</option>
+                        <option value="Wari">Wari</option>
+                        <option value="Lalbagh">Lalbagh</option>
+                        <option value="Shantinagar">Shantinagar</option>
+                        <option value="Azimpur">Azimpur</option>
+                        <option value="Elephant Road">Elephant Road</option>
+                        <option value="Banasree">Banasree</option>
+                        <option value="Mohakhali">Mohakhali</option>
+                        <option value="Rampura">Rampura</option>
+                        <option value="Shyamoli">Shyamoli</option>
+                        <option value="Tongi">Tongi</option>
+                        <option value="Kuril">Kuril</option>
+                        <option value="Kalyanpur">Kalyanpur</option>
+                        <option value="Kazipara">Kazipara</option>
+                        <option value="Shakertek">Shakertek</option>
+                        <option value="Adabor">Adabor</option>
+                        <option value="Hazaribagh">Hazaribagh</option>
+                        <option value="Moghbazar">Moghbazar</option>
+                        <option value="Bijoy Sarani">Bijoy Sarani</option>
+                        <option value="Kawran Bazar">Kawran Bazar</option>
+                        <option value="Kamrangirchar">Kamrangirchar</option>
+                        <option value="Dohar">Dohar</option>
+                        <option value="Demra">Demra</option>
+                        <option value="Keraniganj">Keraniganj</option>
+                        <option value="Savar">Savar</option>
+                        <option value="Ashulia">Ashulia</option>
+                        <option value="Nawabganj">Nawabganj</option>
+                        <option value="Shyampur">Shyampur</option>
+                        <option value="Chakbazar">Chakbazar</option>
+                        <option value="Khilkhet">Khilkhet</option>
+                        <option value="Bashabo">Bashabo</option>
+                        <!-- Add other areas here -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="customerName" class="form-label">Customer Name:</label>
+                    <input type="text" class="form-control" id="customerName" name="customer_name" required>
+                </div>
+                <div class="mb-3">
                     <label for="paymentMethod" class="form-label">Select Payment Method:</label>
                     <select class="form-select" name="payment_method" id="paymentMethod" required>
                         <option value="bkash">bKash</option>
                         <option value="nagad">Nagad</option>
                         <option value="cash_on_delivery">Cash on Delivery</option>
                     </select>
+                </div>
+                <div class="mb-3" id="transactionIdGroup" style="display: none;">
+                    <label for="transactionId" class="form-label">Transaction ID:</label>
+                    <input type="text" class="form-control" id="transactionId" name="transaction_id">
                 </div>
                 <input type="hidden" name="total_amount" id="totalAmount" value="">
                 <button type="submit" name="place_order" class="btn btn-primary btn-lg">Place Order</button>
@@ -145,6 +223,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         const grandTotal = cart.getTotalPrice();
         document.getElementById('grandTotal').innerHTML = grandTotal;
         document.getElementById('totalAmount').value = grandTotal;
+
+        const paymentMethodSelect = document.getElementById('paymentMethod');
+        const transactionIdGroup = document.getElementById('transactionIdGroup');
+
+        // Show Transaction ID input if bKash or Nagad is selected
+        paymentMethodSelect.addEventListener('change', function() {
+            if (this.value === 'bkash' || this.value === 'nagad') {
+                transactionIdGroup.style.display = 'block';
+            } else {
+                transactionIdGroup.style.display = 'none';
+            }
+        });
     </script>
 </body>
+
 </html>
