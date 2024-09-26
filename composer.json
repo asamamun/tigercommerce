@@ -18,6 +18,7 @@
     ],
     "require": {
         "nesbot/carbon": "^3.8",
-        "intervention/image": "^3.8"
+        "intervention/image": "^3.8",
+        "dompdf/dompdf": "^3.0"
     }
 }
