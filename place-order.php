@@ -5,10 +5,13 @@ require __DIR__ . '/config/database.php';
 
 use Dompdf\Dompdf;
 
+// Clear previous output
+ob_start();
+
 function generateReceipt($orderId, $totalAmount, $paymentMethod, $deliveryLocation, $transactionId, $customerName)
 {
     // Add TigerCommerce logo (replace with your logo path)
-    $logoPath = __DIR__ . '/uploads/logo.jpg';
+    $logoPath = 'uploads/logo.jpg'; // Adjusted path
     $receiptHTML = '
     <html>
     <head>
@@ -93,7 +96,8 @@ function generateReceipt($orderId, $totalAmount, $paymentMethod, $deliveryLocati
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
 
-    // Output the generated PDF (force download)
+    // Clear output buffer and stream PDF
+    ob_end_clean();
     $dompdf->stream("receipt_{$orderId}.pdf", array("Attachment" => 1));
     exit;
 }
@@ -106,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         $totalAmount = $_POST['total_amount'];
         $paymentMethod = $_POST['payment_method'];
         $transactionId = isset($_POST['transaction_id']) ? $_POST['transaction_id'] : 'N/A';
+        $orderDate = date('Y-m-d H:i:s');
 
         // Insert the order into the orders table
         $stmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, 'pending')");
@@ -122,11 +127,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
 
         $stmt->close();
 
-        // Generate and download the beautiful receipt as PDF
-        generateReceipt($orderId, $totalAmount, $paymentMethod, $deliveryLocation, $transactionId, $customerName);
+        // Ask if the user wants to download the receipt
+        echo "<script>
+         if (confirm('Your order has been placed. Do you want to download the receipt?')) {
+             window.location.href = 'place-order.php?download_receipt=1&order_id={$orderId}';
+         }
+     </script>";
     } else {
         echo 'You must be logged in to place an order.';
     }
+    // Generate and download the receipt with actual data
+    generateReceipt($orderId, $totalAmount, $paymentMethod, $deliveryLocation, $transactionId, $customerName, $orderDate);
 }
 ?>
 
@@ -209,10 +220,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
                         <option value="cash_on_delivery">Cash on Delivery</option>
                     </select>
                 </div>
-                <div class="mb-3" id="transactionIdGroup" style="display: none;">
-                    <label for="transactionId" class="form-label">Transaction ID:</label>
-                    <input type="text" class="form-control" id="transactionId" name="transaction_id">
+
+                <!-- Mobile Number and Transaction ID fields for bKash/Nagad -->
+                <div id="paymentDetails" style="display: none;">
+                    <div class="mb-3">
+                        <label for="mobileNumber" class="form-label">bKash/Nagad Mobile Number (11 digits):</label>
+                        <input type="text" class="form-control" id="mobileNumber" name="mobile_number" pattern="\d{11}" title="Please enter an 11-digit phone number">
+                    </div>
+                    <div class="mb-3">
+                        <label for="transactionId" class="form-label">Transaction ID:</label>
+                        <input type="text" class="form-control" id="transactionId" name="transaction_id">
+                    </div>
                 </div>
+
                 <input type="hidden" name="total_amount" id="totalAmount" value="">
                 <button type="submit" name="place_order" class="btn btn-primary btn-lg">Place Order</button>
             </form>
@@ -221,19 +241,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
     </div>
     <?php require "partials/footer.php"; ?>
     <script>
-        const grandTotal = cart.getTotalPrice();
+         const grandTotal = cart.getTotalPrice();
         document.getElementById('grandTotal').innerHTML = grandTotal;
         document.getElementById('totalAmount').value = grandTotal;
 
         const paymentMethodSelect = document.getElementById('paymentMethod');
-        const transactionIdGroup = document.getElementById('transactionIdGroup');
+        const paymentDetails = document.getElementById('paymentDetails');
+        const mobileNumberInput = document.getElementById('mobileNumber');
+        const transactionIdInput = document.getElementById('transactionId');
 
-        // Show Transaction ID input if bKash or Nagad is selected
-        paymentMethodSelect.addEventListener('change', function () {
+        // Show Mobile Number and Transaction ID inputs for bKash/Nagad
+        paymentMethodSelect.addEventListener('change', function() {
             if (this.value === 'bkash' || this.value === 'nagad') {
-                transactionIdGroup.style.display = 'block';
+                paymentDetails.style.display = 'block';
+                mobileNumberInput.required = true;
+                transactionIdInput.required = true;
             } else {
-                transactionIdGroup.style.display = 'none';
+                paymentDetails.style.display = 'none';
+                mobileNumberInput.required = false;
+                transactionIdInput.required = false;
+                mobileNumberInput.value = ''; // Clear the fields if not needed
+                transactionIdInput.value = '';
             }
         });
     </script>
