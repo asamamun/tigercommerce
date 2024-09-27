@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
 <body>
     <?php require "partials/navbar.php"; ?>
     <div class="container main-content">
-        <div class="container mt-5">
+        <div class="container w-50 m-auto">
             <h2 class="text-center mb-4">Cart Details</h2>
             <!-- Cart details -->
             <h3 class="text-center mb-4">Grand Total: <span id="grandTotal"></span></h3>
