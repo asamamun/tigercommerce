@@ -217,12 +217,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
                     <select class="form-select" name="payment_method" id="paymentMethod" required>
                         <option value="bkash">bKash</option>
                         <option value="nagad">Nagad</option>
-                        <option value="cash_on_delivery">Cash on Delivery</option>
+                        <option value="upay">Upay</option>
+                        <option value="rocket">Rocket</option>
+                        <option value="cod">Cash on Delivery</option>
                     </select>
                 </div>
 
                 <!-- Mobile Number and Transaction ID fields for bKash/Nagad -->
-                <div id="paymentDetails" style="display: none;">
+                <div id="paymentDetails" style="display: block;">
                     <div class="mb-3">
                         <label for="mobileNumber" class="form-label">bKash/Nagad Mobile Number (11 digits):</label>
                         <input type="text" class="form-control" id="mobileNumber" name="mobile_number" pattern="\d{11}" title="Please enter an 11-digit phone number">

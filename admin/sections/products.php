@@ -1,4 +1,6 @@
 <?php
+//autoload
+require '../../vendor/autoload.php';
 require '../../config/database.php'; // Include the database connection
 
 // Handle Product Status Update
@@ -35,10 +37,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 // Fetch Products
 $products = [];
 $result = $conn->query("
-    SELECT products.*, vendors.company_name, categories.name as category_name
+    SELECT products.*, vendors.company_name, categories.name as category_name, min(images.url) as image
     FROM products
     JOIN vendors ON products.vendor_id = vendors.id
+    LEFT JOIN images ON products.id = images.product_id
     JOIN categories ON products.category_id = categories.id
+    GROUP BY 
+    products.id, 
+    vendors.company_name, 
+    categories.name;
 ");
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -90,25 +97,25 @@ if ($result->num_rows > 0) {
                                     <td><?php echo htmlspecialchars($product['category_name']); ?></td>
                                     <td><?php echo htmlspecialchars($product['company_name']); ?></td>
                                     <td>
-                                        <?php if ($product['image_url']): ?>
-                                            <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="Product Image" width="100" height="100">
+                                        <?php if ($product['image']): ?>
+                                            <img src="<?= settings()['root']  ?>/uploads/vendor/products/<?= $product['vendor_id']; ?>/<?php echo htmlspecialchars($product['image']); ?>" alt="Product Image" width="100" height="100">
                                         <?php else: ?>
                                             No Image
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <span class="badge <?php echo $product['status'] == 'active' ? 'bg-success' : 'bg-danger'; ?>">
+                                        <span class="badge <?php echo $product['status'] == 'active' ? 'bg-success' : 'bg-danger'; ?>" title="status">
                                             <?php echo ucfirst($product['status']); ?>
                                         </span>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-around gap-2">
                                             <?php if ($product['status'] == 'inactive'): ?>
-                                                <a href="products.php?status=active&id=<?php echo $product['id']; ?>" class="btn btn-success btn-sm">
+                                                <a href="products.php?status=active&id=<?php echo $product['id']; ?>" class="btn btn-success btn-sm" title="set to active">
                                                     <i class="bi bi-check"></i>
                                                 </a>
                                             <?php else: ?>
-                                                <a href="products.php?status=inactive&id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">
+                                                <a href="products.php?status=inactive&id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm" title="set to inactive">
                                                     <i class="bi bi-pause"></i>
                                                 </a>
                                             <?php endif; ?>

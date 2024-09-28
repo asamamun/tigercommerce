@@ -40,14 +40,16 @@ grandTotalElement.textContent = `$${cart.getTotalPrice().toFixed(2)}`;
 function deleteItem(id) {
 cart.removeItem(id);
 displayCart();
+updateCartCount();
 }
 
 function updateQuantity(id, newQuantity) {
 cart.updateQuantity(id, newQuantity);
 displayCart();
+updateCartCount();
 }
 
-function addEventListeners() {
+/* function addEventListeners() {
 document.querySelectorAll('.quantity-input').forEach(input => {
 input.addEventListener('change', (e) => {
     const id = parseInt(e.target.getAttribute('data-id'));
@@ -56,15 +58,15 @@ input.addEventListener('change', (e) => {
     displayCart();
 });
 });
-
-document.querySelectorAll('.delete-item').forEach(button => {
+} */
+/* document.querySelectorAll('.delete-item').forEach(button => {
 button.addEventListener('click', (e) => {
     const id = parseInt(e.target.getAttribute('data-id'));
     cart.removeItem(id);
     displayCart();
 });
-});
-}
+}); */
+
 
 
 

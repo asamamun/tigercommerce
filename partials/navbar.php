@@ -13,11 +13,8 @@
           <li class="nav-item position-relative">
             <a class="nav-link" aria-disabled="true" href="cart.php">
               <i class="bi bi-cart4"></i>
-                <?php
-                $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-                ?>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">
-                <?php echo $cart_count; ?>
+                
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-badge">                
                 </span>
             </a>
           </li>

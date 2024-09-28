@@ -56,6 +56,12 @@ class Cart {
     }
   }
   let cart = new Cart();
+  function updateCartCount(){
+    document.getElementById('cart-badge').innerText = cart.getCartCount();
+  }
+  //show cartcount in id cart-badge
+  updateCartCount();
+  
   /*
   // Usage example
   const cart = new Cart();

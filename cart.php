@@ -76,7 +76,7 @@ if (isset($_POST['remove_from_cart'])) {
                 <td>
                     <form method="post" action="cart.php" class="d-flex align-items-center">
                     <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
-                    <input type="number" name="quantity" value="<?php echo $product['quantity']; ?>" min="1" class="form-control w-50">
+                    <input type="number" name="quantity" value="<?php echo $product['quantity']; ?>" min="1" class="form-control">
                     <button type="submit" name="update_quantity" class="btn btn-sm btn-primary ms-2">Update</button>
                     </form>
                 </td>
@@ -110,9 +110,12 @@ if (isset($_POST['remove_from_cart'])) {
         <!-- cart details end  -->
         
         <!-- place order start -->
+         <?php if($_SESSION['role'] == "customer") { ?>
         <div class="d-flex justify-content-center mt-4">
             <a class="btn btn-lg btn-primary" id="placeOrderBtn" href="place-order.php">Place Order</a>
         </div>
+        <?php } else { echo "Only customers can place orders."; } ?>
+
         <!-- place order end -->
     </div>
 
