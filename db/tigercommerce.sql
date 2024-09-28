@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2024 at 01:11 PM
+-- Generation Time: Sep 28, 2024 at 01:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -119,7 +119,11 @@ INSERT INTO `images` (`id`, `product_id`, `url`, `created_at`, `updated_at`) VAL
 (10, 7, '66ea8939af9b25.43101834.webp', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
 (11, 7, '66ea8939b056d6.14542877.webp', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
 (12, 7, '66ea8939b0d936.27341598.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
-(13, 7, '66ea8939b14366.39170798.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05');
+(13, 7, '66ea8939b14366.39170798.jpg', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
+(14, 11, '66f79edadab8a8.94628516.jpg', '2024-09-28 06:14:50', '2024-09-28 06:14:50'),
+(15, 11, '66f79edadb4293.51861163.jpg', '2024-09-28 06:14:50', '2024-09-28 06:14:50'),
+(16, 11, '66f79edadba2a9.95905737.jpg', '2024-09-28 06:14:50', '2024-09-28 06:14:50'),
+(17, 11, '66f79edadc1695.08051285.jpg', '2024-09-28 06:14:50', '2024-09-28 06:14:50');
 
 -- --------------------------------------------------------
 
@@ -132,9 +136,24 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `status` enum('pending','processing','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
+  `transaction` set('bkash','nagad','racket','upay','cod') DEFAULT NULL,
+  `trxid` varchar(30) DEFAULT NULL,
+  `address` varchar(512) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `carrier` varchar(64) DEFAULT NULL,
+  `shipment_date` timestamp NULL DEFAULT NULL,
+  `tracking_number` varchar(64) DEFAULT NULL,
+  `shipping_status` set('pending','shipped','delivered') DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `status`, `transaction`, `trxid`, `address`, `phone`, `carrier`, `shipment_date`, `tracking_number`, `shipping_status`, `created_at`, `updated_at`) VALUES
+(1, 17, 2507.00, 'pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-28 06:42:58', '2024-09-28 06:42:58');
 
 -- --------------------------------------------------------
 
@@ -193,13 +212,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `vendor_id`, `category_id`, `name`, `description`, `price`, `stock_quantity`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, 'asdf', 'asdf', 333.00, 100, 'active', '2024-09-18 06:42:59', '2024-09-18 06:42:59'),
-(2, 1, 5, 'test123', 'test123', 123.00, 12, 'active', '2024-09-18 07:51:45', '2024-09-18 07:51:45'),
-(4, 1, 5, 'yyy', 'yyyy', 5555.00, 55, 'active', '2024-09-18 07:57:17', '2024-09-18 07:57:17'),
 (5, 1, 5, 'iiii', 'iiiii', 88.00, 8, 'active', '2024-09-18 07:58:39', '2024-09-18 07:58:39'),
 (7, 1, 5, 'tttt', 'ttttttttttttttt', 777.00, 77, 'active', '2024-09-18 08:03:05', '2024-09-18 08:03:05'),
-(9, 1, 5, 'wadwaw', 'dawdawd', 11.00, 1, 'active', '2024-09-18 08:16:04', '2024-09-18 08:16:04'),
-(10, 1, 9, 'Super bike', 'sefesfsefsef', 1000.00, 11, 'active', '2024-09-23 07:09:18', '2024-09-23 07:09:18');
+(11, 1, 5, 'Saree', 'saree 12 haat', 3000.00, 100, 'active', '2024-09-28 06:14:50', '2024-09-28 06:14:50');
 
 -- --------------------------------------------------------
 
@@ -261,15 +276,17 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `role`, `created_at`, `updated_at`) VALUES
 (1, 'amit', 'amit@gmail.com', '$2y$10$HEG2lEBDH3wFhZ.5vW8AMeNGrijcfpE7kD9qLxZoKshshL/Uzu0Iq', NULL, NULL, 'customer', '2024-09-17 06:09:25', '2024-09-17 06:09:25'),
-(2, 'admin', 'admin@gmail.com', '$2y$10$gf/ege9/e4rDByEYjoVmB.czcksRE1Gx5b4CBlr4ivD1ZgJo1B4VG', 'super', 'admin', 'admin', '2024-09-17 06:12:34', '2024-09-17 06:12:34'),
+(2, 'admin', 'admin@gmail.com', '$2y$10$gf/ege9/e4rDByEYjoVmB.czcksRE1Gx5b4CBlr4ivD1ZgJo1B4VG', 'super', 'admin', 'admin', '2024-09-17 06:12:34', '2024-09-23 07:43:53'),
 (3, 'dokan1', 'dokan1@gmail.com', '$2y$10$bAq6SQXpkKZ95lxW78jw9ets6G90HZ8n4rHmyQWjvaTipMCEumRPO', 'dokan', 'dar 1', 'vendor', '2024-09-17 06:13:13', '2024-09-17 06:13:13'),
 (4, 'ha', 'ha@gmail.com', '$2y$10$ZtJoPExyq0A4P84P5Ntaf.PwYRCtvIpHdlOMaxCuMn7g4GC5fzB8y', 'Mr,', 'Ha', 'customer', '2024-09-17 06:13:49', '2024-09-17 06:13:49'),
 (5, 'murgi', 'murgi@email.com', '$2y$10$o5MF40ZeiQWlTuaIjkrQpu5fk5htXvMlsYulsmpkhfZHcYDJn3jLG', NULL, NULL, 'vendor', '2024-09-17 06:21:12', '2024-09-17 06:21:12'),
 (6, 'mamun', 'mamun@gmail.com', '$2y$10$TFvH26tiw9JtdvZ7e36Tle9SdR44S81wzH/E0cIvqboZqlgDwfCRG', NULL, NULL, 'vendor', '2024-09-17 06:21:17', '2024-09-17 06:21:17'),
-(7, 'jannat', 'jannat@gmail.com', '$2y$10$Oaw7fsRI9RfoLpfcdp7DUOmle4.FQr9wqFuNNt0Wd92V42Su5/UEG', NULL, NULL, 'vendor', '2024-09-17 06:21:58', '2024-09-17 06:21:58'),
+(7, 'jannat', 'jannat@gmail.com', '$2y$10$Oaw7fsRI9RfoLpfcdp7DUOmle4.FQr9wqFuNNt0Wd92V42Su5/UEG', '5t4e', 'y45 ', 'vendor', '2024-09-17 06:21:58', '2024-09-28 06:31:32'),
 (10, 'Fahima', 'fahima@gmail.com', '$2y$10$I/.p3kmLhdm1p/0m5Ie4UOpOBB99kNfQQjwZ2Eo/KdQ8Z0P4h4N1m', NULL, NULL, 'vendor', '2024-09-17 06:39:32', '2024-09-17 06:39:32'),
 (11, 'dokan2', 'dokan2@gmail.com', '$2y$10$zepUiF2rMxLNUxk2lPu8LuiPiK2gSt7B.IFgdd0nxOA8NVvdxOl9a', NULL, NULL, 'vendor', '2024-09-18 08:05:05', '2024-09-18 08:05:05'),
-(12, 'sifat', 'sifat@gamil.com', '$2y$10$lX2kyBAp2v0ghK1mEUKbXeFgQNlnmpHX4gpDnMeiFiK02zYz9CFwa', NULL, NULL, 'vendor', '2024-09-22 07:44:49', '2024-09-22 07:44:49');
+(12, 'sifat', 'sifatkhan@gamil.com', '$2y$10$lX2kyBAp2v0ghK1mEUKbXeFgQNlnmpHX4gpDnMeiFiK02zYz9CFwa', 'sifat', 'shaikh', 'vendor', '2024-09-22 07:44:49', '2024-09-23 07:49:43'),
+(16, 'user123', 'user123@gmail.com', '$2y$10$NcqDcN1r10SctetzGne6xuH8ZCemp/VBl5cs2pROBQwPHsgV/d.kK', NULL, NULL, 'customer', '2024-09-23 08:29:56', '2024-09-23 08:29:56'),
+(17, 'zimalshahriar', 'zimi@gmail.com', '$2y$10$aiT8kFXg9sSrquVfGf7yTuZFSfj1JljLBglRNwc2LOdE5HhzhqWSy', 'Zim', 'Al-Shahriar', 'customer', '2024-09-28 06:33:58', '2024-09-28 06:33:58');
 
 -- --------------------------------------------------------
 
@@ -293,7 +310,7 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `user_id`, `company_name`, `description`, `logo_url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'active', '2024-09-18 05:59:56', '2024-09-23 06:17:12'),
+(1, 3, 'Murgi 22', 'Sells good quality Murgi 22', '3.jpg', 'inactive', '2024-09-18 05:59:56', '2024-09-23 07:44:52'),
 (2, 11, 'rrr', 'rrr', '11.jpg', 'inactive', '2024-09-18 08:14:33', '2024-09-18 08:14:33');
 
 -- --------------------------------------------------------
@@ -435,13 +452,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_items`
@@ -459,7 +476,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -477,7 +494,7 @@ ALTER TABLE `shipping_addresses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `vendors`
