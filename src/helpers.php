@@ -32,3 +32,11 @@ if (!function_exists('config')) {
       return $inc[$parts[1]];
     }
 }
+
+//isAjax
+if (!function_exists('isAjax')) {
+    function isAjax()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+    }
+}

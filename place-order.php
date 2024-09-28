@@ -5,6 +5,8 @@ require __DIR__ . '/config/database.php';
 
 use Dompdf\Dompdf;
 
+
+
 // Clear previous output
 ob_start();
 
@@ -153,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
             <h3 class="text-center mb-4">Grand Total: <span id="grandTotal"></span></h3>
 
             <!-- Payment form start -->
-            <form method="POST" action="place-order.php">
+            <form method="POST" action="">
                 <div class="mb-3">
                     <label for="deliveryLocation" class="form-label">Select Delivery Location:</label>
                     <select class="form-select" name="delivery_location" id="deliveryLocation" required>
@@ -236,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
                 </div>
 
                 <input type="hidden" name="total_amount" id="totalAmount" value="">
-                <button type="submit" name="place_order" class="btn btn-primary btn-lg">Place Order</button>
+                <button type="button" name="place_order" class="btn btn-primary btn-lg" id="placeOrderBtn">Place Order</button>
             </form>
             <!-- Payment form end -->
         </div>
@@ -266,6 +268,89 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
                 transactionIdInput.value = '';
             }
         });
+
+        //placeOrderBtn
+        document.getElementById('placeOrderBtn').addEventListener('click', function() {
+/*             if (paymentMethodSelect.value === 'bkash' || paymentMethodSelect.value === 'nagad') {
+                if (mobileNumberInput.value.length !== 11 || isNaN(mobileNumberInput.value)) {
+                    alert('Please enter a valid 11-digit phone number.');
+                    return;
+                }
+                if (transactionIdInput.value === '') {
+                    alert('Please enter a transaction ID.');
+                    return;
+                }
+            } */
+           let deliverylocation = document.getElementById("deliveryLocation").value;
+           let customerName = document.getElementById("customerName").value;
+           let paymentMethod = document.getElementById("paymentMethod").value;
+           let mobileNumber = document.getElementById("mobileNumber").value;
+           let transactionId = document.getElementById("transactionId").value;
+           let totalAmount = cart.getTotalPrice();
+           let cartItems = cart.getItems();
+
+           let order = {
+               deliverylocation: deliverylocation,
+               customerName: customerName,
+               paymentMethod: paymentMethod,
+               mobileNumber: mobileNumber,
+               trxid: transactionId,
+               totalAmount: totalAmount,
+               cartItems: cartItems
+           };
+        //    console.log(order);
+        //send the order object to place-order-ajax.php in ajax mode
+/*         let xhr = new XMLHttpRequest();
+        xhr.open('POST', 'place-order-ajax.php', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.onload = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let response = JSON.parse(xhr.responseText);
+                if (response.status == 'success') {
+                    alert('Order placed successfully!');
+                    cart.clear();
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            }
+        }
+        xhr.send(JSON.stringify(order)); */
+
+        //send the order object to place-order-ajax.php in ajax mode
+        fetch('place-order-ajax.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.status == 'success') {
+                // alert('Order placed successfully!');
+                //sweet alert
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    cart.clearCart();
+                    location.reload();
+                });
+                
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        });
+
     </script>
 </body>
 
