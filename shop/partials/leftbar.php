@@ -2,7 +2,7 @@
             <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">POLY</a>
+                    <a href="../index.php">POLY</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
@@ -12,6 +12,12 @@
                         <a href="index.php" class="sidebar-link">
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="vendor_profile.php" class="sidebar-link">
+                            <i class="fa-solid fa-list pe-2"></i>
+                            Profile
                         </a>
                     </li>
                     <li class="sidebar-item">

@@ -37,6 +37,9 @@ if($vendor){
     $conn->query($query);
     if($conn->affected_rows > 0) {
         $_SESSION['message'] = 'Profile updated successfully';
+        if(!isset($_SESSION['vendor_id'])){
+        $_SESSION['vendor_id'] = $conn->insert_id;
+        }
         header('Location: vendor_profile.php'); 
         exit();
     }

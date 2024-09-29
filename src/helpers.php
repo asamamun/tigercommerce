@@ -6,7 +6,7 @@ if (!function_exists('settings')) {
         return [
             'root'  => $root,
             'companyname'=> 'Gold Digger Enterprise',
-            'logo'=>$root."admin/assets/img/logo.svg",
+            'logo'=>$root."assets/img/logo.png",
             'homepage'=> $root,
             'adminpage'=>$root.'admin/',
             'vendorpage'=>$root.'shop/',

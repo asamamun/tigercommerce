@@ -3,7 +3,7 @@ session_start();
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config/database.php';
 if (!isset($_SESSION['vendor_id'])) {
-    header('Location: ../login.php');
+    echo "Go Back!! Create vendor profile first from <a href='vendor_profile.php'>Here</a>";
     exit();
 }
 

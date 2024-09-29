@@ -53,7 +53,7 @@ if ($result->num_rows > 0) {
                             <th>#</th>
                             <th>User</th>
                             <th>Total Amount</th>
-                            <th>Status</th>
+                            <th>OrderStatus</th>
                             <th>Date Created</th>
                             <th>Actions</th>
                         </tr>
@@ -81,9 +81,11 @@ if ($result->num_rows > 0) {
                                                 <i class="bi bi-truck"></i> Ship
                                             </a>
                                         <?php endif; ?>
-                                        <a href="orders.php?order_id=<?php echo $order['id']; ?>" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-eye"></i> View Items
+                                        <a href="orders.php?order_id=<?php echo $order['id']; ?>" class="btn btn-primary btn-sm" title="View Order">
+                                            <i class="bi bi-eye"></i>
                                         </a>
+                                        <a href="invoice.php?id=<?php echo $order['id']; ?>" class="btn btn-secondary btn-sm" target="_blank" title="View Invoice"><i class="bi bi-receipt"></i></a>
+                                        <a href="career.php?id=<?php echo $order['id']; ?>" class="btn btn-warning btn-sm" title="Update Career"> <i class="bi bi-briefcase"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -97,7 +99,19 @@ if ($result->num_rows > 0) {
             </div>
 
             <!-- Order Items Table -->
-            <?php if (isset($_GET['order_id']) && !empty($orderItems)): ?>
+            <?php if (isset($_GET['order_id'])): ?>
+                <?php
+                $orderId = $_GET['order_id'];
+                //show order items with product name from products table join order_items and products table
+                $orderItemsQuery = "SELECT * FROM order_items INNER JOIN products ON order_items.product_id = products.id WHERE order_items.order_id = ?"; 
+
+                
+                $stmt = $conn->prepare($orderItemsQuery);
+                $stmt->bind_param("i", $orderId);
+                $stmt->execute();
+                $orderItemsResult = $stmt->get_result();
+                $orderItems = $orderItemsResult->fetch_all(MYSQLI_ASSOC);
+                ?>
                 <h3 class="my-4">Order Items</h3>
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered">
@@ -114,10 +128,10 @@ if ($result->num_rows > 0) {
                             <?php foreach ($orderItems as $item): ?>
                                 <tr>
                                     <td><?php echo $item['id']; ?></td>
-                                    <td><?php echo htmlspecialchars($item['product_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($item['name']); ?></td>
                                     <td><?php echo htmlspecialchars($item['quantity']); ?></td>
-                                    <td><?php echo htmlspecialchars($item['product_price']); ?></td>
-                                    <td><?php echo htmlspecialchars($item['quantity'] * $item['product_price']); ?></td>
+                                    <td><?php echo htmlspecialchars($item['price']); ?></td>
+                                    <td><?php echo htmlspecialchars($item['quantity'] * $item['price']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
