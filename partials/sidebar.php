@@ -44,7 +44,7 @@ function generateSidebar($categories, $level = 0) {
         if (isset($category['children'])) {
             $html .= 'data-bs-toggle="collapse" href="#submenu-' . $category['id'] . '" role="button" aria-expanded="false" aria-controls="submenu-' . $category['id'] . '"';
         } else {
-            $html .= 'href="#"';
+            $html .= 'href="index.php?category=' . $category['id'] . '"';
         }
         $html .= '>';
         $html .= '<i class="bi bi-folder me-2"></i> ' . htmlspecialchars($category['name']) . '</a>';

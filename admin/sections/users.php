@@ -152,8 +152,9 @@ if ($result->num_rows > 0) {
                     <div class="mb-3">
                         <label for="editRole" class="form-label">Role</label>
                         <select class="form-select" id="editRole" name="role" required>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
+                            <option value="customer" <?= $user['role'] === 'customer' ? 'selected' : '' ?>>Customer</option>
+                            <option value="vendor" <?= $user['role'] === 'vendor' ? 'selected' : '' ?>>Vendor</option>
+                            <option value="admin" <?= $user['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
                         </select>
                     </div>
                 </div>
@@ -173,7 +174,7 @@ function populateEditForm(id, username, email, firstName, lastName, role) {
     document.getElementById('editFirstName').value = firstName;
     document.getElementById('editLastName').value = lastName;
     document.getElementById('editRole').value = role;
-
+//user with role vendor cannot change role because they are a vendor and they can have products which are ordered by customers
     if (role === 'vendor') {
         // Disable role change for vendors
         document.getElementById('editRole').disabled = true;
