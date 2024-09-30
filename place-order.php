@@ -339,7 +339,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
                     timer: 1500
                 }).then(() => {
                     cart.clearCart();
-                    location.reload();
+                    //location.reload();
+                    window.location.href = "invoice.php?id=" + data.orderid;
+                    
                 });
                 
             } else {

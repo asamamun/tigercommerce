@@ -88,6 +88,8 @@ For more details, you can view the [full commit history](https://github.com/asam
     - Start the Apache and MySQL servers from the XAMPP control panel.
     - Navigate to `http://localhost/tigercommerce` in your browser.
 
+7. **Configure root, uploadpath, companyname, logo, hostname in src/helpers.php:**   
+
 ## Contributing
 
 Contributions are welcome! Please submit pull requests with clear descriptions and ensure that they follow the project's coding standards.

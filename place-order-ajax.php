@@ -77,7 +77,11 @@ if($error){
     echo json_encode(['status'=>"Error", "message"=>"Something went wrong. Please try again."]);
 }
 else{
-    echo json_encode(['status'=>"success", "message"=>"Order placed successfully. Order ID: $order_id"]);
+    echo json_encode([
+        'status'=>"success", 
+        "message"=>"Order placed successfully. Order ID: $order_id", 
+        "orderid"=>$order_id
+    ]);
 }
 
 

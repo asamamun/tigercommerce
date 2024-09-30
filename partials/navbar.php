@@ -1,7 +1,10 @@
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">
-      <img src="uploads/logo.jpg" alt="Logo" style="height: 40px; width: 40px; border-radius: 50%;">
+      <img src="<?= settings()['logo'] ?>" alt="Logo" style="height: 40px; width: 40px; border-radius: 50%;">
       Tigercommerce
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
