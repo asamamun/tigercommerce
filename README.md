@@ -92,17 +92,26 @@ For more details, you can view the [full commit history](https://github.com/asam
 
 ## Screenshots
 
+### Homepage
 [![Homepage](https://github.com/asamamun/tigercommerce/blob/master/screenshots/homepage.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/homepage.png)
 
+### Admin Carousel
 [![Admin Carousel](https://github.com/asamamun/tigercommerce/blob/master/screenshots/admin-carousel.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/admin-carousel.png)
 
+### Products
 [![Products](https://github.com/asamamun/tigercommerce/blob/master/screenshots/products.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/products.png)
 
+### Orders
 [![Orders](https://github.com/asamamun/tigercommerce/blob/master/screenshots/orders.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/orders.png)
 
+### Product Details
 [![Product Details](https://github.com/asamamun/tigercommerce/blob/master/screenshots/details.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/details.png)
 
-[![Place Order](https://github.com/asamamun/tigercommerce/blob/master/screenshots/placeorder.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/placeorder.png)
+### Cart
+[![Cart](https://github.com/asamamun/tigercommerce/blob/master/screenshots/cart.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/cart.png)
+
+### Invoice
+[![Invoice](https://github.com/asamamun/tigercommerce/blob/master/screenshots/invoice.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/invoice.png)
 
 
 ## Contributing
