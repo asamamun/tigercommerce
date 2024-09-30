@@ -90,6 +90,21 @@ For more details, you can view the [full commit history](https://github.com/asam
 
 7. **Configure root, uploadpath, companyname, logo, hostname in src/helpers.php:**   
 
+## Screenshots
+
+[![Homepage](https://github.com/asamamun/tigercommerce/blob/master/screenshots/homepage.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/homepage.png)
+
+[![Admin Carousel](https://github.com/asamamun/tigercommerce/blob/master/screenshots/admin-carousel.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/admin-carousel.png)
+
+[![Products](https://github.com/asamamun/tigercommerce/blob/master/screenshots/products.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/products.png)
+
+[![Orders](https://github.com/asamamun/tigercommerce/blob/master/screenshots/orders.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/orders.png)
+
+[![Product Details](https://github.com/asamamun/tigercommerce/blob/master/screenshots/details.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/details.png)
+
+[![Place Order](https://github.com/asamamun/tigercommerce/blob/master/screenshots/placeorder.png)](https://github.com/asamamun/tigercommerce/blob/master/screenshots/placeorder.png)
+
+
 ## Contributing
 
 Contributions are welcome! Please submit pull requests with clear descriptions and ensure that they follow the project's coding standards.
