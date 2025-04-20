@@ -1,6 +1,10 @@
 # TigerCommerce
 
-Polytechnic 2024 batches multivendor eCommerce in PHP-MySQL
+Polytechnic 2024 batches multivendor eCommerce in PHP-MySQL. 
+
+# Duration
+
+Project Duration is 18 hours in 2 weeks
 
 ## Project Description
 
